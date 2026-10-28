@@ -1,6 +1,6 @@
-# Phan Trong Hau — CV
+# Phan Trong Hau — Portfolio
 
-A simple, responsive CV website based on the supplied PDF. Plain HTML and CSS, with a print stylesheet and a downloadable original CV. No build step, external fonts, JavaScript, or dependencies.
+A minimal personal website based on the supplied CV: short introduction, work history, selected project links, about, skills, and contact. Responsive HTML and CSS, no JavaScript, external fonts, dependencies, or build step.
 
 ## Run locally
 
@@ -12,10 +12,10 @@ Open http://localhost:8080.
 
 ## Edit
 
-- `index.html`: CV content and contact links.
-- `styles.css`: desktop, mobile, and print layouts.
+- `index.html`: profile, work history, and contact links.
+- `styles.css`: desktop and mobile layouts.
 - `assets/Phan_Trong_Hau_CV.pdf`: original CV download.
 
-Project links are listed as supplied in the CV and may require authentication. Education dates follow the CV. LinkedIn is omitted because no unambiguous profile URL was supplied.
+Contributions are attributed to the relevant employment context. Product links may require authentication. Education dates follow the CV. LinkedIn is omitted because no unambiguous profile URL was supplied.
 
 Repository visibility is private. No website hosting is configured.
