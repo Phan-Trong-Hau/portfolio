@@ -20,6 +20,7 @@ const SRC = path.join(ROOT, 'content', 'blog');
 const DRAFTS = process.argv.includes('--drafts');
 const LANGS = ['vi', 'en'];
 const GH = 'https://github.com/Phan-Trong-Hau';
+const WIDGET = 'http://localhost:3000/widget.js';
 
 const UI = {
   en: {
@@ -155,6 +156,8 @@ function shell({ lang, root, title, description, enHref, viHref, body, back, bac
 ${body}
 </main>
 <footer class="container"><span>${u.name}</span><div><a href="${GH}" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${root}assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">${u.top}</a></div></footer>
+<!-- Chat widget: change the src to the deployed chatbot URL before publishing. -->
+<script src="${WIDGET}" defer></script>
 </body></html>
 `;
 }
