@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A lightweight replacement for Acer NitroSense on Linux: fan modes, keyboard backlight, and temperature readouts for the Acer Nitro 5.">
+<meta name="theme-color" content="#fafafa"><title>Linux NitroSense — Phan Trong Hau</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="./">
+<link rel="alternate" hreflang="vi" href="../../vi/projects/linux-nitrosense/">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../../#projects">← Back to home</a><nav class="lang" aria-label="Language"><a href="./" lang="en" aria-current="page">EN</a><a href="../../vi/projects/linux-nitrosense/" lang="vi">VI</a></nav></div>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">LINUX TOOL · 2026</p><h1 id="project-title">Linux NitroSense</h1><p class="intro-text">A lightweight replacement for Acer NitroSense on Linux: fan modes, keyboard backlight, and temperature readouts for the Acer Nitro 5.</p><ul class="chips"><li>Python</li><li>Bash</li><li>Linux</li><li>Embedded Controller</li><li>systemd</li></ul><div class="intro-links hero-links"><a href="https://github.com/Phan-Trong-Hau/linux-nitrosense" target="_blank" rel="noopener noreferrer">Source code ↗</a></div></section>
+<figure class="shot"><img class="cover" src="../../assets/projects/linux-nitrosense-cover-1688.webp" srcset="../../assets/projects/linux-nitrosense-cover-844.webp 844w, ../../assets/projects/linux-nitrosense-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="Linux NitroSense cover"></figure>
+<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Why I built it</h2></div><div class="prose"><p>Acer’s NitroSense app only runs on Windows. On Linux my laptop had no way to force the fans or turn off the red keyboard light.</p><p>So I mapped the embedded controller registers myself and wrote a small tool that uses no background daemon and no out-of-tree kernel driver.</p></div></section>
+<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">What it does</h2></div><div class="feature-grid"><div><h3>Fan modes</h3><p>Switch between automatic and 100% turbo fans for gaming or rendering.</p></div><div><h3>Keyboard backlight</h3><p>Turn it on or off, and turn it off automatically at boot.</p></div><div><h3>Live telemetry</h3><p>CPU and GPU temperatures and real fan RPM.</p></div><div><h3>No sudo prompts</h3><p>A single <code>fan</code> command with an interactive menu or direct subcommands.</p></div></div></section>
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">How it works</h2></div><ul class="tech-list"><li><strong>Embedded controller</strong><span>Reads and writes EC registers through the in-kernel ec_sys driver (/sys/kernel/debug/ec/ec0/io).</span></li><li><strong>Register map</strong><span>Mapped fan mode, performance profile, backlight, RPM, and temperature addresses for the AN515-56.</span></li><li><strong>systemd</strong><span>A boot service turns the keyboard backlight off on startup.</span></li><li><strong>Installer</strong><span>Sets up the command, passwordless access, and ec_sys write support; uses 0% CPU when idle.</span></li></ul></section>
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">GitHub</h2><p>github.com/Phan-Trong-Hau/linux-nitrosense</p></div><a class="email" href="https://github.com/Phan-Trong-Hau/linux-nitrosense" target="_blank" rel="noopener noreferrer">Source code ↗</a></section>
+</main>
+<footer class="container"><span>Phan Trong Hau</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Back to top ↑</a></div></footer>
+</body></html>

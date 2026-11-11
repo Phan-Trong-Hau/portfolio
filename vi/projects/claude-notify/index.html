@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Plugin cho Claude Code báo cho bạn khi Claude làm xong hoặc cần bạn duyệt, nhưng chỉ khi bạn không nhìn vào terminal.">
+<meta name="theme-color" content="#fafafa"><title>claude-notify — Phan Trọng Hậu</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="../../../projects/claude-notify/">
+<link rel="alternate" hreflang="vi" href="./">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../../#projects">← Về trang chủ</a><nav class="lang" aria-label="Ngôn ngữ"><a href="../../../projects/claude-notify/" lang="en">EN</a><a href="./" lang="vi" aria-current="page">VI</a></nav></div>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">CÔNG CỤ LẬP TRÌNH · 2026</p><h1 id="project-title">claude-notify</h1><p class="intro-text">Plugin cho Claude Code báo cho bạn khi Claude làm xong hoặc cần bạn duyệt, nhưng chỉ khi bạn không nhìn vào terminal.</p><ul class="chips"><li>Claude Code plugin</li><li>Hooks</li><li>Bash</li><li>Python</li><li>Linux</li><li>macOS</li><li>Windows</li></ul><div class="intro-links hero-links"><a href="https://github.com/Phan-Trong-Hau/claude-notify" target="_blank" rel="noopener noreferrer">Mã nguồn ↗</a></div></section>
+<figure class="shot"><img class="cover" src="../../../assets/projects/claude-notify-cover-1688.webp" srcset="../../../assets/projects/claude-notify-cover-844.webp 844w, ../../../assets/projects/claude-notify-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="Ảnh bìa claude-notify"></figure>
+<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Vì sao mình làm</h2></div><div class="prose"><p>Mình hay chạy nhiều phiên AI code cùng lúc. Không có tín hiệu báo thì mình cứ quay lại kiểm tra quá sớm hoặc quá muộn.</p><p>claude-notify gắn vào hook của Claude Code, phát âm thanh kèm thông báo hệ điều hành, và im lặng khi mình đang ở trong terminal.</p></div></section>
+<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">Có gì</h2></div><div class="feature-grid"><div><h3>Báo khi xong &amp; khi cần duyệt</h3><p>Thông báo khi Claude trả lời xong và khi cần quyền dùng công cụ.</p></div><div><h3>Không làm phiền</h3><p>Không báo nếu terminal đang được focus hoặc bạn đã gõ prompt mới.</p></div><div><h3>Bốn chế độ</h3><p>File âm thanh, tiếng beep hệ thống, đọc bằng giọng nói, hoặc tất cả, chỉnh được âm lượng và độ trễ.</p></div><div><h3>Cài dễ</h3><p>Đăng trong plugin marketplace của mình; dùng được cả với Antigravity CLI.</p></div></div></section>
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">Kỹ thuật</h2></div><ul class="tech-list"><li><strong>Hook của Claude Code</strong><span>Hook Stop và PermissionRequest gọi các script shell nhỏ.</span></li><li><strong>Nhận biết cửa sổ đang dùng</strong><span>Kiểm tra cửa sổ đang active theo từng hệ điều hành: xdotool hoặc COSMIC helper trên Linux, osascript trên macOS, PowerShell trên Windows.</span></li><li><strong>Thông báo</strong><span>notify-send, thông báo macOS hoặc toast Windows, kèm phát âm thanh.</span></li><li><strong>Cấu hình</strong><span>Đọc tuỳ chỉnh từ ~/.claude/settings.json, gộp với mặc định bằng script Python; có test bằng shell.</span></li></ul></section>
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">GitHub</h2><p>github.com/Phan-Trong-Hau/claude-notify</p></div><a class="email" href="https://github.com/Phan-Trong-Hau/claude-notify" target="_blank" rel="noopener noreferrer">Mã nguồn ↗</a></section>
+</main>
+<footer class="container"><span>Phan Trọng Hậu</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Lên đầu trang ↑</a></div></footer>
+</body></html>

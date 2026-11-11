@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A Claude Code plugin that tells you when Claude has finished or needs your approval, but only when you are not looking at the terminal.">
+<meta name="theme-color" content="#fafafa"><title>claude-notify — Phan Trong Hau</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="./">
+<link rel="alternate" hreflang="vi" href="../../vi/projects/claude-notify/">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../../#projects">← Back to home</a><nav class="lang" aria-label="Language"><a href="./" lang="en" aria-current="page">EN</a><a href="../../vi/projects/claude-notify/" lang="vi">VI</a></nav></div>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">DEVELOPER TOOL · 2026</p><h1 id="project-title">claude-notify</h1><p class="intro-text">A Claude Code plugin that tells you when Claude has finished or needs your approval, but only when you are not looking at the terminal.</p><ul class="chips"><li>Claude Code plugin</li><li>Hooks</li><li>Bash</li><li>Python</li><li>Linux</li><li>macOS</li><li>Windows</li></ul><div class="intro-links hero-links"><a href="https://github.com/Phan-Trong-Hau/claude-notify" target="_blank" rel="noopener noreferrer">Source code ↗</a></div></section>
+<figure class="shot"><img class="cover" src="../../assets/projects/claude-notify-cover-1688.webp" srcset="../../assets/projects/claude-notify-cover-844.webp 844w, ../../assets/projects/claude-notify-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="claude-notify cover"></figure>
+<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Why I built it</h2></div><div class="prose"><p>I run several AI coding sessions at once. Without a signal I kept checking back too early or too late.</p><p>claude-notify hooks into Claude Code and plays a sound plus an OS notification, and stays quiet when I am already in the terminal.</p></div></section>
+<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">What it does</h2></div><div class="feature-grid"><div><h3>Stop &amp; approval alerts</h3><p>Notifies when Claude finishes a response and when it needs permission to use a tool.</p></div><div><h3>Smart suppression</h3><p>No alert if the terminal is focused or a new prompt was already typed.</p></div><div><h3>Four modes</h3><p>Sound file, system beep, text-to-speech, or all of them, with volume and delay settings.</p></div><div><h3>Easy install</h3><p>Published in my own plugin marketplace; also works with the Antigravity CLI.</p></div></div></section>
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">How it works</h2></div><ul class="tech-list"><li><strong>Claude Code hooks</strong><span>Stop and PermissionRequest hooks call small shell scripts.</span></li><li><strong>Focus detection</strong><span>Checks the active window per platform: xdotool or the COSMIC helper on Linux, osascript on macOS, PowerShell on Windows.</span></li><li><strong>Notifications</strong><span>notify-send, macOS notifications, or Windows toasts, plus audio playback.</span></li><li><strong>Config</strong><span>Overrides read from ~/.claude/settings.json and merged over defaults by a Python helper; shell tests included.</span></li></ul></section>
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">GitHub</h2><p>github.com/Phan-Trong-Hau/claude-notify</p></div><a class="email" href="https://github.com/Phan-Trong-Hau/claude-notify" target="_blank" rel="noopener noreferrer">Source code ↗</a></section>
+</main>
+<footer class="container"><span>Phan Trong Hau</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Back to top ↑</a></div></footer>
+</body></html>

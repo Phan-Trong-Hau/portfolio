@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="A tiny lofi and ambient radio that lives in the Linux top panel, with a dancing pixel cat and 15 curated 24/7 stations.">
+<meta name="theme-color" content="#fafafa"><title>Lofi Panel — Phan Trong Hau</title>
+<link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="./">
+<link rel="alternate" hreflang="vi" href="../../vi/projects/lofi-panel/">
+<link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../../#projects">← Back to home</a><nav class="lang" aria-label="Language"><a href="./" lang="en" aria-current="page">EN</a><a href="../../vi/projects/lofi-panel/" lang="vi">VI</a></nav></div>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">LINUX APP · 2026</p><h1 id="project-title">Lofi Panel</h1><p class="intro-text">A tiny lofi and ambient radio that lives in the Linux top panel, with a dancing pixel cat and 15 curated 24/7 stations.</p><ul class="chips"><li>Python</li><li>GTK 3</li><li>GStreamer</li><li>D-Bus</li><li>Linux</li></ul><div class="intro-links hero-links"><a href="https://github.com/Phan-Trong-Hau/lofi-panel" target="_blank" rel="noopener noreferrer">Source code ↗</a></div></section>
+<figure class="shot"><img class="cover" src="../../assets/projects/lofi-panel-cover-1688.webp" srcset="../../assets/projects/lofi-panel-cover-844.webp 844w, ../../assets/projects/lofi-panel-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="Lofi Panel cover"></figure>
+<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Why I built it</h2></div><div class="prose"><p>I like coding with lofi on, but a browser tab for music is easy to lose and heavy to keep open.</p><p>Lofi Panel puts the radio right in the top bar: one click to play, scroll to change station, and a cat that dances along.</p></div></section>
+<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">What it does</h2></div><div class="feature-grid"><div><h3>Panel mascot</h3><p>An animated cat bobs to the beat and falls asleep when paused.</p></div><div><h3>Mini player</h3><p>Click the cat for big controls, a live equalizer, and a station picker.</p></div><div><h3>15 stations</h3><p>Lofi hip hop, rainy café, city pop, jazz, solo piano, V-Pop, and more.</p></div><div><h3>Own volume</h3><p>Separate volume that leaves the system volume alone; auto-starts on login.</p></div></div></section>
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">How it works</h2></div><ul class="tech-list"><li><strong>Streaming</strong><span>GStreamer playbin streams in memory; nothing is downloaded to disk.</span></li><li><strong>Panel icon</strong><span>A StatusNotifierItem over D-Bus, working on COSMIC, GNOME, and other FreeDesktop panels.</span></li><li><strong>UI</strong><span>A GTK 3 popover window built with PyGObject; animated SVG frames for the cat and waves.</span></li><li><strong>CLI</strong><span>lofi-panel ui, toggle, next, stop, and status commands.</span></li></ul></section>
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">GitHub</h2><p>github.com/Phan-Trong-Hau/lofi-panel</p></div><a class="email" href="https://github.com/Phan-Trong-Hau/lofi-panel" target="_blank" rel="noopener noreferrer">Source code ↗</a></section>
+</main>
+<footer class="container"><span>Phan Trong Hau</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Back to top ↑</a></div></footer>
+</body></html>

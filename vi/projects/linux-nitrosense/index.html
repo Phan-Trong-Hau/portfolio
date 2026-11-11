@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Bản thay thế gọn nhẹ cho Acer NitroSense trên Linux: chế độ quạt, đèn bàn phím và nhiệt độ cho Acer Nitro 5.">
+<meta name="theme-color" content="#fafafa"><title>Linux NitroSense — Phan Trọng Hậu</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="../../../projects/linux-nitrosense/">
+<link rel="alternate" hreflang="vi" href="./">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../../#projects">← Về trang chủ</a><nav class="lang" aria-label="Ngôn ngữ"><a href="../../../projects/linux-nitrosense/" lang="en">EN</a><a href="./" lang="vi" aria-current="page">VI</a></nav></div>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">CÔNG CỤ LINUX · 2026</p><h1 id="project-title">Linux NitroSense</h1><p class="intro-text">Bản thay thế gọn nhẹ cho Acer NitroSense trên Linux: chế độ quạt, đèn bàn phím và nhiệt độ cho Acer Nitro 5.</p><ul class="chips"><li>Python</li><li>Bash</li><li>Linux</li><li>Embedded Controller</li><li>systemd</li></ul><div class="intro-links hero-links"><a href="https://github.com/Phan-Trong-Hau/linux-nitrosense" target="_blank" rel="noopener noreferrer">Mã nguồn ↗</a></div></section>
+<figure class="shot"><img class="cover" src="../../../assets/projects/linux-nitrosense-cover-1688.webp" srcset="../../../assets/projects/linux-nitrosense-cover-844.webp 844w, ../../../assets/projects/linux-nitrosense-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="Ảnh bìa Linux NitroSense"></figure>
+<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Vì sao mình làm</h2></div><div class="prose"><p>Ứng dụng NitroSense của Acer chỉ chạy trên Windows. Trên Linux, laptop của mình không có cách nào ép quạt chạy tối đa hay tắt đèn bàn phím màu đỏ.</p><p>Nên mình tự dò bảng thanh ghi của embedded controller và viết một công cụ nhỏ, không cần chạy nền, không cần driver kernel ngoài.</p></div></section>
+<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">Có gì</h2></div><div class="feature-grid"><div><h3>Chế độ quạt</h3><p>Chuyển giữa quạt tự động và quạt 100% khi chơi game hay render.</p></div><div><h3>Đèn bàn phím</h3><p>Bật, tắt, và tự tắt khi khởi động máy.</p></div><div><h3>Theo dõi trực tiếp</h3><p>Nhiệt độ CPU, GPU và tốc độ quạt thật.</p></div><div><h3>Không cần sudo</h3><p>Một lệnh <code>fan</code> có menu tương tác hoặc lệnh trực tiếp.</p></div></div></section>
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">Kỹ thuật</h2></div><ul class="tech-list"><li><strong>Embedded controller</strong><span>Đọc ghi thanh ghi EC qua driver ec_sys có sẵn trong kernel (/sys/kernel/debug/ec/ec0/io).</span></li><li><strong>Bảng thanh ghi</strong><span>Dò địa chỉ chế độ quạt, profile hiệu năng, đèn nền, RPM và nhiệt độ cho dòng AN515-56.</span></li><li><strong>systemd</strong><span>Service chạy lúc khởi động để tắt đèn bàn phím.</span></li><li><strong>Bộ cài</strong><span>Cài lệnh, cấu hình chạy không cần mật khẩu và bật quyền ghi cho ec_sys; 0% CPU khi rảnh.</span></li></ul></section>
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">GitHub</h2><p>github.com/Phan-Trong-Hau/linux-nitrosense</p></div><a class="email" href="https://github.com/Phan-Trong-Hau/linux-nitrosense" target="_blank" rel="noopener noreferrer">Mã nguồn ↗</a></section>
+</main>
+<footer class="container"><span>Phan Trọng Hậu</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Lên đầu trang ↑</a></div></footer>
+</body></html>
