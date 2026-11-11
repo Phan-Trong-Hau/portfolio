@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Một lỗ hổng làm lộ access token GCP đã nằm ngay trước mắt mọi người. Vì sao không ai thấy, và mình đã phối hợp với AI để tìm ra nó thế nào.">
+<meta name="theme-color" content="#fafafa"><title>Dùng AI tìm lỗ hổng bảo mật trong tool MCP trên GCP: con người đặt nghi vấn, AI làm phần còn lại — Phan Trọng Hậu</title>
+<link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="../../../blog/ai-tim-lo-hong-bao-mat-mcp-gcp/">
+<link rel="alternate" hreflang="vi" href="./">
+<link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+<main class="container" id="home">
+<div class="topbar"><a class="back" href="../">← Tất cả bài viết</a><nav class="lang" aria-label="Ngôn ngữ"><a href="../../../blog/ai-tim-lo-hong-bao-mat-mcp-gcp/" lang="en">EN</a><a href="./" lang="vi" aria-current="page">VI</a></nav></div>
+<article class="article" aria-labelledby="post-title"><header class="article-head"><p class="post-meta"><time datetime="2026-11-12">12 tháng 11, 2026</time> · 7 phút đọc</p><h1 id="post-title">Dùng AI tìm lỗ hổng bảo mật trong tool MCP trên GCP: con người đặt nghi vấn, AI làm phần còn lại</h1><p class="intro-text">Một lỗ hổng làm lộ access token GCP đã nằm ngay trước mắt mọi người. Vì sao không ai thấy, và mình đã phối hợp với AI để tìm ra nó thế nào.</p><ul class="chips"><li>#ai</li><li>#bao-mat</li><li>#mcp</li><li>#gcp</li></ul></header>
+<div class="article-body"><p>Lỗ hổng nguy hiểm nhất mà mình từng tìm ra không nằm trong một đoạn code khó hiểu. Nó nằm trong một tính năng ai cũng biết, đã qua review, đã qua test, và được khách hàng dùng hằng ngày. Không ai thấy nó, không phải vì mọi người cẩu thả, mà vì <strong>mỗi phần của hệ thống đều đúng khi đứng riêng</strong>.</p>
+<p>Bài này kể lại cách mình tìm ra nó cùng AI. Bài học lớn nhất của mình: AI đọc code nhanh hơn mình rất nhiều, nhưng <strong>câu hỏi đúng vẫn phải do con người đặt ra</strong>.</p>
+<p><em>Lỗ hổng đã được vá. Mình bỏ tên công ty và các chi tiết có thể nhận diện hệ thống, và chỉ mô tả ở mức nguyên lý.</em></p>
+<h2 id="boi-canh-ai-agent-tool-va-mot-tinh-nang-quot-custom-api-quot"><a class="anchor" href="#boi-canh-ai-agent-tool-va-mot-tinh-nang-quot-custom-api-quot" aria-hidden="true">#</a>Bối cảnh: AI agent, tool và một tính năng &quot;Custom API&quot;</h2>
+<p>Hệ thống có các AI agent dùng tool theo kiểu MCP: agent nhận câu hỏi, quyết định gọi tool nào, đọc kết quả rồi trả lời người dùng. Các tool chạy trên hạ tầng GCP của công ty.</p>
+<p>Trong số đó có một tool rất được ưa chuộng: <strong>Custom API</strong>. Người dùng tự cấu hình một URL, và agent sẽ gọi tới đó khi cần, ví dụ để tra đơn hàng hay lấy thông tin khách từ hệ thống riêng của họ. Một tính năng linh hoạt, đúng thứ khách hàng muốn.</p>
+<p>Vấn đề là: người dùng có thể điền <strong>bất kỳ URL nào</strong>, kể cả một địa chỉ chỉ truy cập được từ <em>bên trong</em> GCP. Trên GCP có một endpoint nội bộ để máy chủ lấy access token của service account mà nó đang chạy. Request từ tool đi ra từ bên trong hạ tầng, nên nó gọi được endpoint đó.</p>
+<p>Ghép lại: người dùng cấu hình Custom API trỏ vào endpoint lấy token, rồi chỉ cần <strong>nhờ AI trả nguyên kết quả của tool trong câu trả lời</strong>. Agent làm đúng việc được thiết kế: gọi tool, đọc kết quả, trả lời. Và access token của một service account có quyền rất rộng trên GCP hiện ra ngay trong khung chat.</p>
+<p>Đây là một dạng SSRF (server-side request forgery) kinh điển. Điểm mới là kẻ tấn công không cần viết code hay gửi request nào: <strong>AI agent làm hộ toàn bộ, kể cả bước mang dữ liệu ra ngoài.</strong></p>
+<h2 id="vi-sao-khong-ai-tim-ra"><a class="anchor" href="#vi-sao-khong-ai-tim-ra" aria-hidden="true">#</a>Vì sao không ai tìm ra?</h2>
+<p>Nhìn lại thì rõ ràng. Nhưng nó đã nằm đó một thời gian, và mình nghĩ lý do nằm ở cách mỗi người nhìn hệ thống:</p>
+<ul>
+<li><strong>Người làm tính năng</strong> thấy một tool gọi HTTP, đúng yêu cầu: người dùng điền URL, tool gọi URL.</li>
+<li><strong>Người làm hạ tầng</strong> thấy dịch vụ chạy với service account, chuyện bình thường trên GCP.</li>
+<li><strong>Người làm AI</strong> thấy agent đọc kết quả tool và trả lời đúng ngữ cảnh, đúng như mong muốn.</li>
+<li><strong>Code review</strong> nhìn từng pull request. Không PR nào chứa lỗ hổng, vì lỗ hổng chỉ xuất hiện khi ghép ba thứ trên lại.</li>
+<li><strong>QA</strong> test xem tính năng có chạy không. Không ai viết test case &quot;nếu người dùng cố tình trỏ URL vào bên trong hạ tầng thì sao&quot;.</li>
+</ul>
+<p>Thêm một lý do nữa: ta quen coi tool là &quot;code nội bộ, đáng tin&quot;. Nhưng một tool mà <strong>người dùng điều khiển được đầu vào</strong>, và <strong>AI quyết định khi nào gọi</strong>, thì không còn là code nội bộ nữa. Nó là bề mặt tấn công.</p>
+<h2 id="cau-hoi-cua-con-nguoi-quot-tool-nay-chay-voi-danh-tinh-cua-ai-quot"><a class="anchor" href="#cau-hoi-cua-con-nguoi-quot-tool-nay-chay-voi-danh-tinh-cua-ai-quot" aria-hidden="true">#</a>Câu hỏi của con người: &quot;Tool này chạy với danh tính của ai?&quot;</h2>
+<p>Thứ khiến mình dừng lại không phải một dòng code lạ. Đó là một câu hỏi rất đơn giản khi nhìn kiến trúc: <strong>các tool này chạy bằng service account nào, và service account đó có quyền gì?</strong></p>
+<p>Từ đó, chuỗi suy nghĩ đi khá nhanh:</p>
+<ol>
+<li>Tool chạy bên trong GCP, dưới một service account có quyền rộng.</li>
+<li>Có tool cho người dùng tự chọn đích để gọi.</li>
+<li>Vậy người dùng có thể khiến một request xuất phát <em>từ bên trong</em> hạ tầng, mang danh tính của service account đó.</li>
+<li>Và AI sẽ đưa kết quả ra cho người dùng xem.</li>
+</ol>
+<p>Đây là bước mình nghĩ AI chưa tự làm tốt khi đứng một mình. Đưa cả codebase cho AI và bảo &quot;tìm lỗ hổng&quot; thì sẽ nhận về một danh sách dài những thứ đúng nhưng chung chung: thiếu validate chỗ này, nên thêm rate limit chỗ kia. Thứ thật sự nguy hiểm nằm ở <strong>ranh giới giữa các hệ thống</strong>: giữa dữ liệu người dùng, quyền của hạ tầng và hành vi của AI. Để thấy nó, cần một người hiểu cả ba và có cảm giác &quot;chỗ này có gì đó không ổn&quot;.</p>
+<h2 id="ai-lam-phan-con-lai"><a class="anchor" href="#ai-lam-phan-con-lai" aria-hidden="true">#</a>AI làm phần còn lại</h2>
+<p>Khi đã có giả thuyết, AI trở thành một cộng sự cực kỳ hiệu quả. Thay vì &quot;tìm lỗ hổng đi&quot;, mình giao cho nó những câu hỏi cụ thể:</p>
+<ul>
+<li>URL của Custom API đi từ đâu tới đâu trong code? Có bước kiểm tra nào trước khi gọi không? Có chặn địa chỉ nội bộ không? Có theo redirect không?</li>
+<li>Dịch vụ chạy tool được gắn service account nào? Service account đó có những quyền gì?</li>
+<li>Kết quả của tool có được lọc gì trước khi đưa vào ngữ cảnh của LLM và trả về người dùng không?</li>
+<li><strong>Còn tool nào khác có cùng kiểu</strong>: nhận URL hoặc đích từ người dùng, rồi gọi ra ngoài từ bên trong hạ tầng?</li>
+</ul>
+<p>Với từng câu hỏi, AI đọc hết những file liên quan trong vài phút, việc mà mình tự làm sẽ mất cả buổi, và trả lời kèm vị trí trong code để mình kiểm tra lại. Câu hỏi cuối cùng đặc biệt đáng giá: một lỗ hổng hiếm khi đi một mình, và AI rà soát các pattern tương tự trên toàn bộ codebase tốt hơn mình nhiều.</p>
+<p>Sau đó mình <strong>tự xác minh</strong> trong môi trường an toàn, không tin vào kết luận của AI chỉ vì nó nói chắc nịch. Xác nhận xong thì báo cáo cho team kèm mức độ ảnh hưởng và đề xuất hướng vá, và AI cũng giúp mình viết báo cáo đó rõ ràng hơn.</p>
+<h2 id="huong-va-cho-loai-lo-hong-nay"><a class="anchor" href="#huong-va-cho-loai-lo-hong-nay" aria-hidden="true">#</a>Hướng vá cho loại lỗ hổng này</h2>
+<p>Nếu bạn đang làm tool cho AI agent trên cloud, đây là những lớp phòng thủ nên có. Mỗi lớp chặn một phần, và nên dùng kết hợp:</p>
+<ul>
+<li><strong>Chặn đích nội bộ.</strong> Không cho gọi địa chỉ nội bộ, link-local hay endpoint metadata. Kiểm tra <em>sau khi</em> phân giải DNS, và kiểm tra lại sau mỗi lần redirect (hoặc tắt redirect), vì chặn theo tên miền rất dễ bị lách.</li>
+<li><strong>Allowlist khi có thể.</strong> Nếu khách hàng chỉ cần gọi vài hệ thống của họ, cho đăng ký tên miền trước thay vì mở cho mọi URL.</li>
+<li><strong>Quyền tối thiểu.</strong> Dịch vụ chạy tool do người dùng cấu hình nên có service account riêng, gần như không có quyền gì trên hạ tầng. Lỡ token có bị lộ thì cũng không làm được gì nhiều.</li>
+<li><strong>Tách nơi chạy.</strong> Code gọi ra URL do người dùng chọn không nên chạy chung chỗ với các dịch vụ có quyền.</li>
+<li><strong>Lọc kết quả tool trước khi đưa cho AI.</strong> Phát hiện và che những chuỗi trông giống token, key hay credential. Coi output của tool là dữ liệu không tin cậy.</li>
+<li><strong>Đừng trông chờ vào prompt.</strong> Một câu &quot;không được tiết lộ token&quot; trong system prompt không phải là biện pháp bảo mật. Người dùng luôn có cách xin AI làm khác.</li>
+<li><strong>Log và cảnh báo.</strong> Theo dõi các request ra ngoài bất thường từ dịch vụ chạy tool.</li>
+</ul>
+<h2 id="dieu-minh-rut-ra"><a class="anchor" href="#dieu-minh-rut-ra" aria-hidden="true">#</a>Điều mình rút ra</h2>
+<p>AI thay đổi cách mình làm bảo mật, nhưng không theo kiểu &quot;AI tự tìm hết lỗ hổng&quot;. Cách phối hợp hiệu quả với mình là:</p>
+<ol>
+<li><strong>Con người đặt nghi vấn.</strong> Hiểu kiến trúc, nhìn vào chỗ các hệ thống chạm nhau, và hỏi những câu như &quot;cái này chạy với danh tính của ai?&quot;, &quot;ai điều khiển được đầu vào này?&quot;, &quot;dữ liệu này cuối cùng đi đến đâu?&quot;.</li>
+<li><strong>AI trả lời thật nhanh và rộng.</strong> Lần theo luồng dữ liệu, đọc cấu hình, tìm các chỗ tương tự trên cả codebase.</li>
+<li><strong>Con người xác minh và quyết định.</strong> Kiểm tra lại, đánh giá mức độ nghiêm trọng, chọn cách vá.</li>
+</ol>
+<p>Và một lưu ý cho những ai đang xây AI agent: khi cho AI quyền gọi tool, bạn cũng cho người dùng một cách gián tiếp để điều khiển những tool đó. Hãy thiết kế tool như thể người dùng đang gọi trực tiếp, vì thực tế là như vậy.</p>
+</div>
+<nav class="post-pager"><span></span><a class="older" href="../kinh-nghiem-dung-ai-2026/"><span>Cũ hơn →</span>Làm việc cùng AI năm 2026: những điều mình rút ra</a></nav></article>
+</main>
+<footer class="container"><span>Phan Trọng Hậu</span><div><a href="https://github.com/Phan-Trong-Hau" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="../../../assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">Lên đầu trang ↑</a></div></footer>
+<!-- Chat widget: change the src to the deployed chatbot URL before publishing. -->
+<script src="http://localhost:3000/widget.js" defer></script>
+</body></html>
