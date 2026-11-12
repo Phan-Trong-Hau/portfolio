@@ -22,7 +22,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
 const DRAFTS = process.argv.includes('--drafts');
 const LANGS = ['vi', 'en'];
-const WIDGET = 'http://localhost:3000/widget.js';
+const WIDGET = 'https://factors-donald-cottage-directories.trycloudflare.com/widget.js';
 
 const UI = {
   en: {
