@@ -42,6 +42,10 @@ node tools/build-blog.mjs            # before committing: published posts only
 
 The script regenerates `blog/`, `vi/blog/`, and the latest-posts section on both home pages (between `<!-- blog:start -->` and `<!-- blog:end -->`). Do not edit those generated files by hand. Markdown is parsed by the vendored `tools/vendor/marked.esm.js` (MIT).
 
+## Projects
+
+`projects/index.html` and `vi/projects/index.html` list every project card (one per line, in display order) with filters. The home page only shows the featured ones listed in `FEATURED` in `tools/projects.mjs`; `node tools/build-blog.mjs` copies those cards into the home pages. To add a project, add its page under `projects/<slug>/` (and `vi/`), add its card to both list pages, and add the slug to `FEATURED` if it should be on the home page.
+
 ## Footer
 
 Every page shares one footer (contact icons: email, phone, Zalo, LinkedIn, GitHub, Facebook) plus a small floating back-to-top button in the bottom-right corner. Edit the links in `tools/footer.mjs`, then run `node tools/build-blog.mjs`: it rewrites the footer on the home pages, project pages, and blog pages.

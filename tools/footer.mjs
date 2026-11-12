@@ -47,7 +47,8 @@ export function footer(lang, root) {
 
 // Rewrite the <footer> of the hand-written pages (home + project pages).
 export function syncStaticFooters(ROOT) {
-  const pages = [['index.html', 'en'], [path.join('vi', 'index.html'), 'vi']];
+  const pages = [['index.html', 'en'], [path.join('vi', 'index.html'), 'vi'],
+    [path.join('projects', 'index.html'), 'en'], [path.join('vi', 'projects', 'index.html'), 'vi']];
   for (const [dir, lang] of [['projects', 'en'], [path.join('vi', 'projects'), 'vi']]) {
     const abs = path.join(ROOT, dir);
     if (!fs.existsSync(abs)) continue;

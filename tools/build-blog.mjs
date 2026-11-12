@@ -16,6 +16,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Marked } from './vendor/marked.esm.js';
 import { footer, syncStaticFooters } from './footer.mjs';
+import { syncFeaturedProjects } from './projects.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
@@ -227,5 +228,6 @@ for (const lang of LANGS) {
 }
 
 const synced = syncStaticFooters(ROOT);
+const featured = syncFeaturedProjects(ROOT);
 const count = l => posts.filter(p => p.lang === l).length;
-console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}; footer synced on ${synced} page(s)`);
+console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}; footer synced on ${synced} page(s); ${featured} featured project(s) on home`);

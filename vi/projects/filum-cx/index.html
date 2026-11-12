@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Nền tảng tương tác khách hàng đa kênh, gom tin nhắn, tương tác và quy trình hỗ trợ khách hàng về một chỗ.">
+<meta name="description" content="Filum CX: mình thiết kế lớp giám sát cho hơn 10 kênh tích hợp, sửa tận gốc lỗi đếm hội thoại sai kéo dài, làm automation AI và giảm thời gian tải trang từ 15 giây xuống khoảng 8 giây.">
 <meta name="theme-color" content="#fafafa"><title>Filum CX — Phan Trọng Hậu</title>
 <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="../../../projects/filum-cx/">
 <link rel="alternate" hreflang="vi" href="./">
@@ -12,12 +12,71 @@
 
 <main class="container" id="home">
 <div class="topbar"><a class="back" href="../../#projects">← Về trang chủ</a><nav class="lang" aria-label="Ngôn ngữ"><a href="../../../projects/filum-cx/" lang="en">EN</a><a href="./" lang="vi" aria-current="page">VI</a></nav></div>
-<section class="project-hero" aria-labelledby="project-title"><p class="label">DỰ ÁN CÔNG TY · FILUM AI · 2024 — 2026</p><h1 id="project-title">Filum CX</h1><p class="intro-text">Nền tảng tương tác khách hàng đa kênh, gom tin nhắn, tương tác và quy trình hỗ trợ khách hàng về một chỗ.</p><ul class="chips"><li>Next.js</li><li>Node.js</li><li>Python</li><li>GCP Cloud Functions</li><li>Cloud Run</li><li>Redis</li><li>TanStack Query/Table</li><li>Ant Design</li></ul><div class="intro-links hero-links"><a class="button" href="https://cx.filum.ai" target="_blank" rel="noopener noreferrer">Mở cx.filum.ai ↗</a></div><p class="private-note">Làm tại Filum AI cùng đội kỹ sư. Sản phẩm thuộc về công ty; cần tài khoản doanh nghiệp để đăng nhập.</p></section>
+<section class="project-hero" aria-labelledby="project-title"><p class="label">DỰ ÁN CÔNG TY · FILUM AI · 2024 — 2026</p><h1 id="project-title">Filum CX</h1><p class="intro-text">Nền tảng chăm sóc khách hàng đa kênh: một hộp thư cho hơn 10 kênh, AI agent và automation, cùng các quy trình hỗ trợ cho đội CSKH.</p><ul class="chips"><li>Next.js</li><li>Node.js</li><li>Python</li><li>GCP Cloud Functions</li><li>Cloud Run</li><li>Redis</li><li>TanStack Query/Table</li><li>Ant Design</li></ul><div class="intro-links hero-links"><a class="button" href="https://cx.filum.ai" target="_blank" rel="noopener noreferrer">Mở cx.filum.ai ↗</a></div><p class="private-note">Làm tại Filum AI cùng đội kỹ sư. Sản phẩm thuộc về công ty; cần tài khoản doanh nghiệp để đăng nhập.</p></section>
 <figure class="shot"><img class="cover" src="../../../assets/projects/filum-cx-cover-1688.webp" srcset="../../../assets/projects/filum-cx-cover-844.webp 844w, ../../../assets/projects/filum-cx-cover-1688.webp 1688w" sizes="(max-width: 1040px) 100vw, 980px" width="1688" height="780" alt="Ảnh bìa Filum CX: hộp thư hợp nhất"></figure>
-<section class="section section-after-shot" aria-labelledby="about-title"><div class="section-heading"><h2 id="about-title">Giới thiệu</h2></div><div class="prose"><p>Filum CX là sản phẩm chính của Filum AI. Doanh nghiệp dùng nó để trò chuyện với khách hàng trên mọi kênh trong một hộp thư, có AI agent lo phần việc lặp lại.</p><p>Mình làm cùng đội kỹ sư 15 người, chủ yếu ở phần tích hợp kênh, độ ổn định của lớp tích hợp, hiệu năng frontend và hệ thống tự động hóa.</p></div></section>
-<section class="section" aria-labelledby="feat-title"><div class="section-heading"><h2 id="feat-title">Có gì</h2></div><div class="feature-grid"><div><h3>Hơn 10 kênh, một hộp thư</h3><p>Tích hợp Messenger, Zalo OA, 3CX và các kênh khác vào hệ thống quản lý hội thoại hỗ trợ hơn 80 tích hợp.</p></div><div><h3>Tự xử lý sự cố</h3><p>Logging tập trung, cảnh báo, theo dõi credential và retry cho hơn 80 tích hợp và hơn 300 Cloud Functions, triển khai trong khoảng một tháng.</p></div><div><h3>Workflow tự động</h3><p>Tham gia xây hệ thống tự động hóa với hơn 10 trigger và hơn 10 action.</p></div><div><h3>Frontend nhanh hơn</h3><p>Lazy loading, tree shaking, ảo hóa danh sách và tối ưu render để bớt tốn tài nguyên.</p></div></div></section>
-<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">Kỹ thuật</h2></div><ul class="tech-list"><li><strong>Frontend</strong><span>Next.js cùng Ant Design, shadcn/ui và TanStack Query/Table.</span></li><li><strong>Tích hợp</strong><span>Service Node.js và Python chạy trên GCP Cloud Functions và Cloud Run.</span></li><li><strong>Chi phí</strong><span>Giảm 60% chi phí logging hằng tháng, từ $500 xuống $200, nhờ bỏ log thừa và chỉnh tài nguyên Cloud Run.</span></li><li><strong>Bảo mật</strong><span>Audit bảo mật có AI hỗ trợ, trong đó phát hiện GCP access token bị lộ qua API custom tool.</span></li></ul></section>
-<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">Xem bản đang chạy</h2><p>Mở trang đang chạy trong tab mới.</p></div><a class="email" href="https://cx.filum.ai" target="_blank" rel="noopener noreferrer">Mở cx.filum.ai ↗</a></section>
+<section class="section section-after-shot" aria-labelledby="summary-title"><div class="section-heading"><h2 id="summary-title">Tóm tắt nhanh</h2></div>
+<div class="stat-grid">
+<div class="stat"><b>0%</b><span>comment Facebook bị bỏ sót sau khi có luồng AI tự trả lời, trước đó phải có người trực trả lời tay</span></div>
+<div class="stat"><b>15s → ~8s</b><span>thời gian tải trang của khách hàng, nhờ sắp xếp lại và trì hoãn các lệnh gọi API</span></div>
+<div class="stat"><b>Vài giờ → tức thì</b><span>thời gian dev tìm ra nguyên nhân lỗi tích hợp, trước đây mất từ một buổi tới một ngày</span></div>
+<div class="stat"><b>10+</b><span>kênh được hệ thống giám sát, log và retry do mình thiết kế bao phủ, triển khai trong khoảng một tháng</span></div>
+</div>
+<div class="prose">
+<p>Filum CX là sản phẩm chính của Filum AI. Doanh nghiệp dùng nó để trò chuyện với khách hàng trên mọi kênh từ một hộp thư, với AI agent và automation lo phần việc lặp lại.</p>
+<p>Mình làm sản phẩm này hai năm trong đội kỹ sư 15 người. Mình <strong>thiết kế và làm chính lớp giám sát, đảm bảo độ tin cậy cho các tích hợp</strong>, phụ trách phần <strong>automation</strong>, và thêm tính năng cho <strong>conversation và ticket</strong>. Trang này kể lại những bài toán mình đã nhận và những gì thay đổi nhờ chúng.</p>
+</div></section>
+
+<section class="section" aria-labelledby="rel-title"><div class="section-heading"><h2 id="rel-title">Giữ cho các tích hợp kênh chạy ổn định</h2></div>
+<div class="prose">
+<p>Filum CX hỗ trợ hơn 80 tích hợp, chạy trên Cloud Function. Khi một tích hợp kênh bị hỏng, <strong>khách hàng là người phát hiện đầu tiên</strong>. Khách báo đội CSKH, CS kiểm tra rồi chuyển cho dev, dev trace nguyên nhân, rồi câu trả lời lại đi ngược về khách.</p>
+<p>Mình thiết kế hệ thống thay đổi quy trình đó cho hơn 10 kênh, và làm phần lớn nó.</p>
+</div>
+<div class="table-wrap"><table class="data-table wide">
+<thead><tr><th>Loại lỗi</th><th>Trước</th><th>Sau</th></tr></thead>
+<tbody>
+<tr><td>Credential hết hạn (token, đăng nhập)</td><td>Khách phát hiện. Người có kinh nghiệm mất 2–3 giờ trao đổi, người mới mất khoảng một buổi, rồi khách mới re-auth</td><td>Khách tự thấy kết nối sắp hết hạn hoặc đã hết hạn và tự re-auth, trước khi có gì bị gián đoạn</td></tr>
+<tr><td>Hạ tầng (Cloud Function thiếu RAM, traffic tăng đột biến, API của kênh lỗi)</td><td>Mất một buổi tới một ngày để tìm nguyên nhân, sau đó phải chạy lại dữ liệu bị lỡ bằng tay cho khách</td><td>Thấy nguyên nhân ngay trong log tập trung. Tác vụ lỗi tự retry, nếu retry vẫn không được thì team nhận cảnh báo trong kênh nội bộ</td></tr>
+</tbody></table></div>
+<ol class="steps">
+<li><strong>Theo dõi credential</strong>Theo dõi trạng thái mọi kết nối và cho khách thấy khi nào sắp hết hạn, để họ re-auth kịp lúc.</li>
+<li><strong>Log tập trung</strong>Log của mọi tích hợp ở một chỗ, nên lỗi chỉ thẳng tới nguyên nhân thay vì phải trace mất nhiều giờ.</li>
+<li><strong>Tự động retry</strong>Dữ liệu đồng bộ lỗi được xử lý lại mà không cần ai chạy tay.</li>
+<li><strong>Cảnh báo nội bộ</strong>Khi retry không đủ, team được báo trước, thường là trước cả khi khách kịp nhận ra.</li>
+</ol>
+<div class="note-box"><strong>Kết quả:</strong> việc hỗ trợ chuyển từ “khách báo lỗi” sang “team đã biết trước, và khách tự xử lý được loại lỗi phổ biến nhất”. Mình cũng giảm 60% chi phí log mỗi tháng, từ 500 xuống 200 USD, bằng cách bỏ log thừa và tinh chỉnh tài nguyên Cloud Run.</div>
+</section>
+
+<section class="section" aria-labelledby="bug-title"><div class="section-heading"><h2 id="bug-title">Lỗi khó nhất: số đếm hội thoại luôn sai</h2></div>
+<div class="prose">
+<p>View count, tức số hội thoại trong mỗi view của hộp thư, <strong>bị sai từ trước tới giờ</strong>. Lỗi được sửa đi sửa lại, và vài hôm sau khách lại báo số bị lệch. Chưa ai tìm ra gốc rễ.</p>
+<p>Mình lần ra nguyên nhân nằm ở cách tính: số đếm được tính ở frontend, không có nguồn dữ liệu chuẩn từ backend, nên cứ lệch dần khi hội thoại thay đổi. Vá ở frontend thì không bao giờ giữ được lâu.</p>
+<p>Mình thêm luồng để backend gửi snapshot số đếm xuống frontend mỗi khi có thay đổi. Từ đó <strong>khách không còn báo sai view count nữa</strong>.</p>
+</div></section>
+
+<section class="section" aria-labelledby="auto-title"><div class="section-heading"><h2 id="auto-title">Automation và AI</h2></div>
+<div class="feature-grid">
+<div><h3>AI trả lời comment Facebook</h3><p>Dựng luồng automation để AI tự trả lời comment Facebook cho khách hàng. Trước đây phải có người trực page trả lời tay. Giờ không còn comment nào bị bỏ sót.</p></div>
+<div><h3>Node Agent cho mọi workflow</h3><p>Xây node Agent có thể gọi trong các luồng automation khác, biến AI agent thành một khối dựng sẵn mà khách tự ghép vào workflow của họ.</p></div>
+<div><h3>Trigger và action</h3><p>Cùng xây hệ thống automation với hơn 10 trigger và hơn 10 action.</p></div>
+</div></section>
+
+<section class="section" aria-labelledby="conv-title"><div class="section-heading"><h2 id="conv-title">Conversation, ticket và tốc độ</h2></div>
+<div class="feature-grid">
+<div><h3>SLA và attribute</h3><p>Thêm SLA và thuộc tính tuỳ chỉnh cho conversation và ticket, để đội CSKH thấy việc nào sắp trễ hạn và phân loại được yêu cầu.</p></div>
+<div><h3>Từ 15 giây xuống khoảng 8 giây</h3><p>Sắp xếp lại các lệnh gọi API: cái nào tải trước, cái nào chờ được, cái nào chưa cần gọi cho tới khi người dùng mở phần đó. Thời gian tải trang của khách giảm từ 15 giây xuống hơn 8 giây.</p></div>
+<div><h3>Frontend nhẹ hơn</h3><p>Lazy loading, tree shaking, ảo hoá danh sách và tối ưu render để bớt việc thừa trên trình duyệt.</p></div>
+<div><h3>10 kênh do mình tích hợp</h3><p>Trong hơn 80 tích hợp mà nền tảng hỗ trợ, mình trực tiếp tích hợp 10 kênh, gồm Messenger, Zalo OA và 3CX, vào trình quản lý hội thoại chung.</p></div>
+</div></section>
+
+<section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">Cách hoạt động</h2></div>
+<ul class="tech-list">
+<li><strong>Frontend</strong><span>Next.js với Ant Design, shadcn/ui và TanStack Query/Table.</span></li>
+<li><strong>Tích hợp</strong><span>Các service Node.js và Python trên GCP Cloud Functions và Cloud Run, cùng Redis.</span></li>
+<li><strong>Độ tin cậy</strong><span>Log tập trung, theo dõi credential, retry và cảnh báo nội bộ cho hơn 10 kênh tích hợp.</span></li>
+<li><strong>Bảo mật</strong><span>Audit bảo mật có AI hỗ trợ, trong đó tìm ra lỗ hổng làm lộ access token GCP qua API của custom tool. <a href="../../blog/ai-tim-lo-hong-bao-mat-mcp-gcp/">Đọc bài viết →</a></span></li>
+</ul></section>
+
+<section class="contact section" aria-labelledby="cta-title"><div><h2 id="cta-title">Xem trực tiếp</h2><p>Mở trang trong tab mới. Cần tài khoản doanh nghiệp để đăng nhập.</p></div><a class="email" href="https://cx.filum.ai" target="_blank" rel="noopener noreferrer">Mở cx.filum.ai ↗</a></section>
 </main>
 <footer class="container site-footer" id="contact"><span>Phan Trọng Hậu</span><nav class="footer-social" aria-label="Liên hệ"><a href="mailto:phantronghau.dev@gmail.com" aria-label="Email: phantronghau.dev@gmail.com" title="Email: phantronghau.dev@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a><a href="tel:+84392334214" aria-label="Gọi 0392 334 214" title="Gọi 0392 334 214"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a><a href="https://zalo.me/0392334214" aria-label="Zalo: 0392 334 214" title="Zalo: 0392 334 214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="6" fill="currentColor"/><text x="12" y="15.6" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.6" font-weight="700" fill="#fff">Zalo</text></svg></a><a href="https://www.linkedin.com/in/phan-trong-hau/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a><a href="https://github.com/Phan-Trong-Hau" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></a><a href="https://www.facebook.com/phantronghauJs" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></a></nav><button type="button" class="to-top" aria-label="Lên đầu trang" title="Lên đầu trang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script>(()=>{const b=document.querySelector('.to-top');if(!b)return;const chat=()=>document.querySelector('body>button[aria-expanded][aria-label]');const up=()=>{b.classList.toggle('show',scrollY>600);b.classList.toggle('above-chat',!!chat())};addEventListener('scroll',up,{passive:true});up();b.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}))})()</script></footer>
 <script src="http://localhost:3000/widget.js" defer></script>
