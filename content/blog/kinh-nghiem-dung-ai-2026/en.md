@@ -3,6 +3,8 @@ title: "Working with AI in 2026: what I've learned"
 date: 2026-11-12
 description: Running several AI sessions at once, vibe coding a game, measuring a chatbot with evals instead of gut feeling, and what I still don't hand over to AI.
 tags: [ai, experience, claude-code]
+home: true
+cover: cover.webp
 ---
 
 In 2026, AI is part of almost everything I do: at work, in my side projects, and even in the portfolio you're reading. This post isn't about whether AI will replace developers. It's a record of what actually worked for me, where I tripped up, and a few rules I now stick to.

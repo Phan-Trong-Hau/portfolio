@@ -26,8 +26,12 @@ Posts are Markdown files in `content/blog/<slug>/`:
   description: One-line summary for lists and link previews.
   tags: [nextjs, gcp]
   draft: true   # optional; drafts are skipped unless you pass --drafts
+  home: true    # optional; one of the 3 posts shown on the home page
+  cover: cover.webp   # optional; image in the post folder, 16:9 (e.g. 1200×675)
   ---
   ```
+
+The home page shows only 3 posts: those with `home: true` first (newest first), then the latest posts fill the rest. Mark your best 3. The full list is always at `/blog/`.
 
 Start from `content/blog/_template/vi.md` (copy the folder and rename it). Then build:
 
@@ -36,7 +40,11 @@ node tools/build-blog.mjs --drafts   # preview, includes drafts
 node tools/build-blog.mjs            # before committing: published posts only
 ```
 
-The script regenerates `blog/`, `vi/blog/`, and the latest-posts section on both home pages (between the `<!-- blog:start -->` and `<!-- blog:end -->` markers). Do not edit those generated files by hand. Markdown is parsed by the vendored `tools/vendor/marked.esm.js` (MIT).
+The script regenerates `blog/`, `vi/blog/`, and the latest-posts section on both home pages (between `<!-- blog:start -->` and `<!-- blog:end -->`). Do not edit those generated files by hand. Markdown is parsed by the vendored `tools/vendor/marked.esm.js` (MIT).
+
+## Footer
+
+Every page shares one footer (contact icons: email, phone, Zalo, LinkedIn, GitHub, Facebook) plus a small floating back-to-top button in the bottom-right corner. Edit the links in `tools/footer.mjs`, then run `node tools/build-blog.mjs`: it rewrites the footer on the home pages, project pages, and blog pages.
 
 ## Edit
 
@@ -47,6 +55,6 @@ The script regenerates `blog/`, `vi/blog/`, and the latest-posts section on both
 - `assets/hau-*.{webp,jpg}`: portrait (480/960 px, metadata stripped).
 - Chat widget: the `<script src=".../widget.js">` tag at the end of `index.html`. Point it at the deployed chatbot URL, and add this site's origin to the chatbot's `EMBED_ALLOWED_ORIGINS`.
 
-Contributions are attributed to the relevant employment context. Product links may require authentication. Education dates follow the CV. LinkedIn is omitted because no unambiguous profile URL was supplied.
+Contributions are attributed to the relevant employment context. Product links may require authentication. Education dates follow the CV.
 
 Repository visibility is private. No website hosting is configured.

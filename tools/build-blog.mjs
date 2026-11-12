@@ -8,18 +8,19 @@
 // Other files in the post folder (images…) are copied next to the generated page.
 // Folders starting with "_" are ignored (see content/blog/_template).
 //
-// Output: blog/ (EN), vi/blog/ (VI), and the "Writing" section on both home pages.
+// Output: blog/ (EN), vi/blog/ (VI), the "Writing" section on both home pages,
+// and the shared footer (tools/footer.mjs) on every page.
 
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { Marked } from './vendor/marked.esm.js';
+import { footer, syncStaticFooters } from './footer.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
 const DRAFTS = process.argv.includes('--drafts');
 const LANGS = ['vi', 'en'];
-const GH = 'https://github.com/Phan-Trong-Hau';
 const WIDGET = 'http://localhost:3000/widget.js';
 
 const UI = {
@@ -27,7 +28,7 @@ const UI = {
     name: 'Phan Trong Hau', blog: 'Blog', blogTitle: 'Writing', homeH: 'Writing',
     blogLead: 'Notes on things I build, problems I run into at work, and what I learn along the way.',
     back: '← Back to home', backBlog: '← All posts', allPosts: 'All posts →', nav: 'Language',
-    empty: 'The first posts are on their way.', min: n => `${n} min read`,
+    empty: 'The first posts are on their way.', min: n => `${n} min read`, read: 'Read post', count: n => `${n} post${n === 1 ? '' : 's'}`,
     viOnly: 'In Vietnamese', draft: 'Draft', top: 'Back to top ↑', prev: '← Newer', next: 'Older →',
     date: d => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }),
   },
@@ -35,7 +36,7 @@ const UI = {
     name: 'Phan Trọng Hậu', blog: 'Blog', blogTitle: 'Bài viết', homeH: 'Bài viết',
     blogLead: 'Ghi chép về những thứ mình làm, các vấn đề gặp ở công ty và những gì học được trên đường đi.',
     back: '← Về trang chủ', backBlog: '← Tất cả bài viết', allPosts: 'Tất cả bài viết →', nav: 'Ngôn ngữ',
-    empty: 'Những bài viết đầu tiên sắp ra mắt.', min: n => `${n} phút đọc`,
+    empty: 'Những bài viết đầu tiên sắp ra mắt.', min: n => `${n} phút đọc`, read: 'Đọc bài', count: n => `${n} bài viết`,
     enOnly: 'Bằng tiếng Anh', draft: 'Nháp', top: 'Lên đầu trang ↑', prev: '← Mới hơn', next: 'Cũ hơn →',
     date: d => `${d.getUTCDate()} tháng ${d.getUTCMonth() + 1}, ${d.getUTCFullYear()}`,
   },
@@ -126,15 +127,23 @@ function postHref(p, fromLang, where) {
   return `${toRoot}${p.lang === 'en' ? '' : 'vi/'}blog/${p.slug}/`;
 }
 
-function item(p, lang, where, h = 'h3') {
+// Post card (blog index and home): cover image on top (front matter `cover: cover.webp`, a file in the
+// post folder), or a coloured placeholder with the first tag when there is none.
+function card(p, lang, where = 'index', h = 'h2') {
   const u = UI[lang];
-  const foreign = p.lang !== lang ? `<span class="post-lang">${lang === 'en' ? u.viOnly : u.enOnly}</span>` : '';
-  const draft = p.draft ? `<span class="post-lang">${u.draft}</span>` : '';
-  const tags = p.tags.length ? `<span class="post-tags">${p.tags.map(t => `#${esc(t)}`).join(' ')}</span>` : '';
-  return `<li><a class="post-item" href="${postHref(p, lang, where)}"${p.lang !== lang ? ` hreflang="${p.lang}"` : ''}>`
+  const href = postHref(p, lang, where);
+  const L = p.lang !== lang ? ` lang="${p.lang}"` : '';
+  const foreign = p.lang !== lang ? ` <span class="post-lang">${lang === 'en' ? u.viOnly : u.enOnly}</span>` : '';
+  const draft = p.draft ? ` <span class="post-lang">${u.draft}</span>` : '';
+  const cover = p.cover
+    ? `<img src="${href}${esc(p.cover)}" width="1200" height="675" loading="lazy" alt="">`
+    : `<span class="post-cover-ph">${esc(p.tags[0] ? '#' + p.tags[0] : u.blog)}</span>`;
+  const tags = p.tags.length ? `<span class="post-tags">${p.tags.map(t => `<span class="tag">#${esc(t)}</span>`).join('')}</span>` : '';
+  return `<li><a class="post-card" href="${href}"${p.lang !== lang ? ` hreflang="${p.lang}"` : ''}><div class="post-cover">${cover}</div><div class="post-card-body">`
     + `<span class="post-meta"><time datetime="${p.date.toISOString().slice(0, 10)}">${UI[p.lang].date(p.date)}</time> · ${UI[p.lang].min(p.minutes)}${foreign}${draft}</span>`
-    + `<${h}${p.lang !== lang ? ` lang="${p.lang}"` : ''}>${esc(p.title)}</${h}>`
-    + (p.description ? `<p${p.lang !== lang ? ` lang="${p.lang}"` : ''}>${esc(p.description)}</p>` : '') + tags + `</a></li>`;
+    + `<${h}${L}>${esc(p.title)}</${h}>`
+    + (p.description ? `<p${L}>${esc(p.description)}</p>` : '')
+    + `<span class="post-foot">${tags}<span class="post-read">${u.read} <span aria-hidden="true">→</span></span></span></div></a></li>`;
 }
 
 function shell({ lang, root, title, description, enHref, viHref, body, back, backHref }) {
@@ -155,7 +164,7 @@ function shell({ lang, root, title, description, enHref, viHref, body, back, bac
 <div class="topbar"><a class="back" href="${backHref}">${back}</a><nav class="lang" aria-label="${u.nav}"><a href="${enHref}" lang="en"${cur('en')}>EN</a><a href="${viHref}" lang="vi"${cur('vi')}>VI</a></nav></div>
 ${body}
 </main>
-<footer class="container"><span>${u.name}</span><div><a href="${GH}" target="_blank" rel="noopener noreferrer">GitHub ↗</a><a href="${root}assets/Phan_Trong_Hau_CV.pdf" download>CV ↓</a><a href="#home">${u.top}</a></div></footer>
+${footer(lang, root)}
 <!-- Chat widget: change the src to the deployed chatbot URL before publishing. -->
 <script src="${WIDGET}" defer></script>
 </body></html>
@@ -174,12 +183,12 @@ for (const lang of LANGS) {
   const root = lang === 'en' ? '../' : '../../';
 
   // blog index
-  const listHtml = list.length ? `<ul class="post-list post-list-full">${list.map(p => item(p, lang, 'index', 'h2')).join('')}</ul>` : `<p class="post-empty">${u.empty}</p>`;
+  const listHtml = list.length ? `<ul class="post-grid">${list.map(p => card(p, lang)).join('')}</ul>` : `<p class="post-empty">${u.empty}</p>`;
   write(path.join(outDir(lang), 'index.html'), shell({
     lang, root, title: `${u.blogTitle} — ${u.name}`, description: u.blogLead,
     enHref: lang === 'en' ? './' : '../../blog/', viHref: lang === 'en' ? '../vi/blog/' : './',
     back: u.back, backHref: '../',
-    body: `<section class="blog-hero" aria-labelledby="blog-title"><p class="label">${u.blog.toUpperCase()}</p><h1 id="blog-title">${u.blogTitle}</h1><p class="intro-text">${u.blogLead}</p></section>\n<section class="blog-body">${listHtml}</section>`,
+    body: `<section class="blog-hero" aria-labelledby="blog-title"><p class="label">${u.blog.toUpperCase()}</p><h1 id="blog-title">${u.blogTitle}</h1><p class="intro-text">${u.blogLead}</p>${list.length ? `<p class="blog-count">${u.count(list.length)}</p>` : ''}</section>\n<section class="blog-body">${listHtml}</section>`,
   }));
 
   // posts
@@ -203,15 +212,20 @@ for (const lang of LANGS) {
   // home page section between <!-- blog:start --> and <!-- blog:end -->
   const home = path.join(ROOT, lang === 'en' ? '' : 'vi', 'index.html');
   let s = fs.readFileSync(home, 'utf8');
-  const latest = list.slice(0, 3);
+  // Home shows 3 posts: the ones marked `home: true` (in either language) first,
+  // newest first, then the latest posts fill any empty spots.
+  const picked = new Set(posts.filter(p => p.home === true).map(p => p.slug));
+  const latest = [...list.filter(p => picked.has(p.slug)), ...list.filter(p => !picked.has(p.slug))].slice(0, 3);
   const section = latest.length
-    ? `<section id="blog" class="section" aria-labelledby="blog-home-title"><div class="section-heading"><h2 id="blog-home-title">${u.homeH}</h2><a class="see-all" href="blog/">${u.allPosts}</a></div><ul class="post-list">${latest.map(p => item(p, lang, 'home')).join('')}</ul></section>`
+    ? `<section id="blog" class="section" aria-labelledby="blog-home-title"><div class="section-heading"><h2 id="blog-home-title">${u.homeH}</h2><a class="see-all" href="blog/">${u.allPosts}</a></div><ul class="post-grid${latest.length === 3 ? ' post-grid-home' : ''}">${latest.map(p => card(p, lang, 'home', 'h3')).join('')}</ul></section>`
     : '';
   const re = /<!-- blog:start -->[\s\S]*?<!-- blog:end -->/;
   if (!re.test(s)) throw new Error(`${home}: missing <!-- blog:start --><!-- blog:end --> markers`);
   s = s.replace(re, `<!-- blog:start -->${section}<!-- blog:end -->`);
+
   fs.writeFileSync(home, s);
 }
 
+const synced = syncStaticFooters(ROOT);
 const count = l => posts.filter(p => p.lang === l).length;
-console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}`);
+console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}; footer synced on ${synced} page(s)`);

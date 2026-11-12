@@ -3,6 +3,8 @@ title: "Using AI to find a security hole in MCP tools on GCP: humans ask the rig
 date: 2026-11-12
 description: A vulnerability that leaked GCP access tokens sat in plain sight. Why nobody saw it, and how I worked with AI to find it.
 tags: [ai, security, mcp, gcp]
+home: true
+cover: cover.webp
 ---
 
 The most dangerous vulnerability I've ever found wasn't hidden in some obscure piece of code. It sat in a feature everyone knew about, one that had passed review, passed testing, and was used by customers every day. Nobody saw it, not because people were careless, but because **every part of the system was correct on its own**.

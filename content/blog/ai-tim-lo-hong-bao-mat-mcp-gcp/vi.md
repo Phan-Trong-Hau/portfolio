@@ -3,6 +3,8 @@ title: "Dùng AI tìm lỗ hổng bảo mật trong tool MCP trên GCP: con ngư
 date: 2026-11-12
 description: Một lỗ hổng làm lộ access token GCP đã nằm ngay trước mắt mọi người. Vì sao không ai thấy, và mình đã phối hợp với AI để tìm ra nó thế nào.
 tags: [ai, bao-mat, mcp, gcp]
+home: true
+cover: cover.webp
 ---
 
 Lỗ hổng nguy hiểm nhất mà mình từng tìm ra không nằm trong một đoạn code khó hiểu. Nó nằm trong một tính năng ai cũng biết, đã qua review, đã qua test, và được khách hàng dùng hằng ngày. Không ai thấy nó, không phải vì mọi người cẩu thả, mà vì **mỗi phần của hệ thống đều đúng khi đứng riêng**.

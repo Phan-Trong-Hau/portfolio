@@ -3,6 +3,8 @@ title: "Làm việc cùng AI năm 2026: những điều mình rút ra"
 date: 2026-11-12
 description: Chạy nhiều phiên AI cùng lúc, vibe code một game, đo chatbot bằng eval thay vì cảm giác, và những việc mình vẫn không giao cho AI.
 tags: [ai, kinh-nghiem, claude-code]
+home: true
+cover: cover.webp
 ---
 
 Năm 2026, AI có mặt trong gần như mọi việc mình làm: ở công ty, trong các dự án cá nhân, và cả trang portfolio bạn đang đọc. Bài này không bàn chuyện "AI có thay thế lập trình viên không". Mình chỉ ghi lại những gì đã thực sự hiệu quả, những chỗ mình vấp, và vài nguyên tắc mình đang giữ.

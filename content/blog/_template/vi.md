@@ -4,6 +4,8 @@ date: 2026-11-20
 description: Một câu tóm tắt, hiện ở danh sách bài viết và khi chia sẻ link.
 tags: [kinh-nghiem, nextjs]
 draft: true
+# cover: cover.webp   # ảnh bìa 16:9 (vd 1200×675) đặt trong thư mục bài
+# home: true   # bỏ dấu # để đưa bài lên trang chủ (trang chủ chỉ hiện 3 bài)
 ---
 
 <!--
