@@ -22,7 +22,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
 const DRAFTS = process.argv.includes('--drafts');
 const LANGS = ['vi', 'en'];
-const WIDGET = 'https://pierce-nail-congress-karaoke.trycloudflare.com/widget.js';
+const WIDGET = 'https://kai.tail0b89ee.ts.net/widget.js';
 
 const UI = {
   en: {
