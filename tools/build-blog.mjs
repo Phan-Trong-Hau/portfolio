@@ -166,8 +166,8 @@ function shell({ lang, root, title, description, enHref, viHref, body, back, bac
 ${body}
 </main>
 ${footer(lang, root)}
-<!-- Chat widget: change the src to the deployed chatbot URL before publishing. -->
-<script src="${WIDGET}" defer></script>
+<!-- Chat widget, loaded after the page: a slow or offline chatbot server must not hold the page's load (tab spinner). -->
+<script>addEventListener('load',function(){var s=document.createElement('script');s.src='${WIDGET}';s.async=true;document.body.appendChild(s)})</script>
 </body></html>
 `;
 }
