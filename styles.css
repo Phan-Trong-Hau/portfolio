@@ -229,3 +229,4 @@
 .other-jobs b{display:block;font-size:15px;font-weight:600;color:var(--text)}
 .other-jobs span{display:block;font-size:13.5px;color:var(--muted)}
 @media(max-width:700px){.other-jobs{grid-template-columns:1fr}}
+.kai-live-wrap{margin:22px 0 0;font-size:14px}.kai-live:not([hidden]){display:inline-block;line-height:1.5}
