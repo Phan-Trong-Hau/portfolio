@@ -28,7 +28,7 @@ const UI = {
   en: {
     name: 'Phan Trong Hau', blog: 'Blog', blogTitle: 'Writing', homeH: 'Writing',
     blogLead: 'Notes on things I build, problems I run into at work, and what I learn along the way.',
-    back: '← Back to home', backBlog: '← All posts', allPosts: 'All posts →', nav: 'Language',
+    back: '← Back to home', backBlog: '← All posts', allPosts: 'All posts →', prevPosts: 'Previous posts', nextPosts: 'Next posts', toSlide: 'Go to slide', nav: 'Language',
     empty: 'The first posts are on their way.', min: n => `${n} min read`, read: 'Read post', count: n => `${n} post${n === 1 ? '' : 's'}`,
     viOnly: 'In Vietnamese', draft: 'Draft', top: 'Back to top ↑', prev: '← Newer', next: 'Older →',
     date: d => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }),
@@ -36,7 +36,7 @@ const UI = {
   vi: {
     name: 'Phan Trọng Hậu', blog: 'Blog', blogTitle: 'Bài viết', homeH: 'Bài viết',
     blogLead: 'Ghi chép về những thứ mình làm, các vấn đề gặp ở công ty và những gì học được trên đường đi.',
-    back: '← Về trang chủ', backBlog: '← Tất cả bài viết', allPosts: 'Tất cả bài viết →', nav: 'Ngôn ngữ',
+    back: '← Về trang chủ', backBlog: '← Tất cả bài viết', allPosts: 'Tất cả bài viết →', prevPosts: 'Bài trước', nextPosts: 'Bài tiếp', toSlide: 'Tới slide', nav: 'Ngôn ngữ',
     empty: 'Những bài viết đầu tiên sắp ra mắt.', min: n => `${n} phút đọc`, read: 'Đọc bài', count: n => `${n} bài viết`,
     enOnly: 'Bằng tiếng Anh', draft: 'Nháp', top: 'Lên đầu trang ↑', prev: '← Mới hơn', next: 'Cũ hơn →',
     date: d => `${d.getUTCDate()} tháng ${d.getUTCMonth() + 1}, ${d.getUTCFullYear()}`,
@@ -218,7 +218,7 @@ for (const lang of LANGS) {
   const picked = new Set(posts.filter(p => p.home === true).map(p => p.slug));
   const latest = [...list.filter(p => picked.has(p.slug)), ...list.filter(p => !picked.has(p.slug))].slice(0, 3);
   const section = latest.length
-    ? `<section id="blog" class="section" aria-labelledby="blog-home-title"><div class="section-heading"><h2 id="blog-home-title">${u.homeH}</h2><a class="see-all" href="blog/">${u.allPosts}</a></div><ul class="post-grid${latest.length === 3 ? ' post-grid-home' : ''}">${latest.map(p => card(p, lang, 'home', 'h3')).join('')}</ul></section>`
+    ? `<section id="blog" class="section" aria-labelledby="blog-home-title"><div class="section-heading"><h2 id="blog-home-title">${u.homeH}</h2><div class="heading-side"><a class="see-all" href="blog/">${u.allPosts}</a><div class="scroll-nav" data-scroll="post-grid"><button type="button" aria-label="${u.prevPosts}">←</button><button type="button" aria-label="${u.nextPosts}">→</button></div></div></div><ul class="carousel post-grid-home" id="post-grid" data-dots="post-dots">${latest.map(p => card(p, lang, 'home', 'h3')).join('')}</ul><div class="carousel-dots" id="post-dots" data-label="${u.toSlide}"></div></section>`
     : '';
   const re = /<!-- blog:start -->[\s\S]*?<!-- blog:end -->/;
   if (!re.test(s)) throw new Error(`${home}: missing <!-- blog:start --><!-- blog:end --> markers`);
