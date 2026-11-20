@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/projects/cv-chatbot", "destination": "/projects/kai/", "permanent": true },
+    { "source": "/projects/cv-chatbot/", "destination": "/projects/kai/", "permanent": true },
+    { "source": "/vi/projects/cv-chatbot", "destination": "/vi/projects/kai/", "permanent": true },
+    { "source": "/vi/projects/cv-chatbot/", "destination": "/vi/projects/kai/", "permanent": true }
+  ]
+}

@@ -33,7 +33,7 @@ AI is very good at making something that **works**. Making something that **feel
 
 ## 3. For AI products, measure with numbers, not gut feeling
 
-The project I learned the most from this year is [Kai](../../projects/cv-chatbot/), a chatbot that answers questions about me based on my CV. It runs on a small model, Qwen3 4B, right on my laptop.
+The project I learned the most from this year is [Kai](../../projects/kai/), a chatbot that answers questions about me based on my CV. It runs on a small model, Qwen3 4B, right on my laptop.
 
 A chatbot that talks about a real person must never make up employers, dates, or numbers. Trying a few questions and seeing that they look fine proves nothing, so I wrote an eval suite that runs with one command. It includes:
 

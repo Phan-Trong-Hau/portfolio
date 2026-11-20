@@ -41,11 +41,6 @@
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/claude-notify/"/>
   </url>
   <url>
-    <loc>https://www.phantronghau.com/projects/cv-chatbot/</loc>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/cv-chatbot/"/>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/cv-chatbot/"/>
-  </url>
-  <url>
     <loc>https://www.phantronghau.com/projects/dh-2026/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/dh-2026/"/>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/dh-2026/"/>
@@ -64,6 +59,11 @@
     <loc>https://www.phantronghau.com/projects/filum-website/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/filum-website/"/>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/filum-website/"/>
+  </url>
+  <url>
+    <loc>https://www.phantronghau.com/projects/kai/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/kai/"/>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/kai/"/>
   </url>
   <url>
     <loc>https://www.phantronghau.com/projects/khung-anh-dai-hoi/</loc>
@@ -146,11 +146,6 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/claude-notify/"/>
   </url>
   <url>
-    <loc>https://www.phantronghau.com/vi/projects/cv-chatbot/</loc>
-    <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/cv-chatbot/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/cv-chatbot/"/>
-  </url>
-  <url>
     <loc>https://www.phantronghau.com/vi/projects/dh-2026/</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/dh-2026/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/dh-2026/"/>
@@ -169,6 +164,11 @@
     <loc>https://www.phantronghau.com/vi/projects/filum-website/</loc>
     <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/filum-website/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/filum-website/"/>
+  </url>
+  <url>
+    <loc>https://www.phantronghau.com/vi/projects/kai/</loc>
+    <xhtml:link rel="alternate" hreflang="vi" href="https://www.phantronghau.com/vi/projects/kai/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.phantronghau.com/projects/kai/"/>
   </url>
   <url>
     <loc>https://www.phantronghau.com/vi/projects/khung-anh-dai-hoi/</loc>

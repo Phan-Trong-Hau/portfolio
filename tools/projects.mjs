@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 // Slugs shown on the home page, in order. Everything else is on /projects/.
-export const FEATURED = ['filum-cx', 'cv-chatbot', 'dh-2026', 'tinhdiem-online', 'bida-8-bi'];
+export const FEATURED = ['filum-cx', 'kai', 'dh-2026', 'tinhdiem-online', 'bida-8-bi'];
 
 export function syncFeaturedProjects(ROOT) {
   for (const [list, home] of [['projects/index.html', 'index.html'], ['vi/projects/index.html', 'vi/index.html']]) {
