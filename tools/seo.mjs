@@ -30,7 +30,17 @@ const PERSON = {
   email: 'mailto:phantronghau.dev@gmail.com',
   address: { '@type': 'PostalAddress', addressLocality: 'Ho Chi Minh City', addressCountry: 'VN' },
   sameAs: ['https://www.linkedin.com/in/phan-trong-hau/', 'https://github.com/Phan-Trong-Hau', 'https://www.facebook.com/phantronghauJs'],
+  '@id': `${SITE}/#person`,
+  givenName: 'Hậu',
+  familyName: 'Phan',
+  description: 'Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on MLOps. Formerly at Filum AI and Mysheo.',
+  nationality: { '@type': 'Country', name: 'Vietnam' },
+  alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'Industrial University of Ho Chi Minh City' }, { '@type': 'CollegeOrUniversity', name: 'VinUniversity' }],
+  worksFor: undefined,
+  hasOccupation: { '@type': 'Occupation', name: 'Software Engineer', occupationLocation: { '@type': 'City', name: 'Ho Chi Minh City' } },
+  knowsAbout: ['Software Engineering', 'Full-stack development', 'Next.js', 'Node.js', 'Python', 'Google Cloud Platform', 'System integrations', 'AI agents', 'RAG', 'MLOps'],
 };
+const PERSON_REF = { '@id': `${SITE}/#person` };
 const unesc = t => t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
 const attr = t => t.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
 
@@ -60,14 +70,15 @@ function headFor(html, d, url, otherUrl) {
   if (kind === 'post' || kind === 'project') crumbs.push({ name: title.replace(/ — Phan Tr.*$/, ''), item: here });
   const graph = [];
   if (kind === 'home') graph.push(PERSON, { '@type': 'WebSite', name: 'Phan Trọng Hậu', url: `${SITE}/`, inLanguage: vi ? 'vi' : 'en', author: { '@id': `${SITE}/#person` } });
-  if (kind === 'list') graph.push({ '@type': 'CollectionPage', name: title, description: desc, url: here, inLanguage: vi ? 'vi' : 'en', author: PERSON });
+  if (kind === 'list') graph.push({ '@type': 'CollectionPage', name: title, description: desc, url: here, inLanguage: vi ? 'vi' : 'en', author: PERSON_REF });
   if (kind === 'post') {
     const date = html.match(/<time datetime="([^"]+)"/)?.[1];
-    graph.push({ '@type': 'BlogPosting', headline: title.replace(/ — Phan Tr.*$/, ''), description: desc, image, url: here, mainEntityOfPage: here, inLanguage: vi ? 'vi' : 'en', ...(date ? { datePublished: date, dateModified: date } : {}), author: PERSON, publisher: PERSON });
+    graph.push({ '@type': 'BlogPosting', headline: title.replace(/ — Phan Tr.*$/, ''), description: desc, image, url: here, mainEntityOfPage: here, inLanguage: vi ? 'vi' : 'en', ...(date ? { datePublished: date, dateModified: date } : {}), author: PERSON_REF, publisher: PERSON_REF });
   }
-  if (kind === 'project') graph.push({ '@type': 'CreativeWork', name: title.replace(/ — Phan Tr.*$/, ''), description: desc, image, url: here, inLanguage: vi ? 'vi' : 'en', author: PERSON, creator: PERSON });
+  if (kind === 'project') graph.push({ '@type': 'CreativeWork', name: title.replace(/ — Phan Tr.*$/, ''), description: desc, image, url: here, inLanguage: vi ? 'vi' : 'en', author: PERSON_REF, creator: PERSON_REF });
   if (crumbs.length > 1) graph.push({ '@type': 'BreadcrumbList', itemListElement: crumbs.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.name, item: c.item })) });
-  if (kind === 'home') graph[0] = { ...PERSON, '@id': `${SITE}/#person` };
+  if (kind !== 'home') graph.push(PERSON);
+  else graph.push({ '@type': 'ProfilePage', url: here, mainEntity: PERSON_REF, inLanguage: vi ? 'vi' : 'en' });
   const ld = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph }).replace(/</g, '\\u003c');
   return [
     `<link rel="canonical" href="${here}">`,
@@ -114,6 +125,33 @@ export function syncSeo(ROOT) {
     return `  <url>\n    <loc>${url(d)}</loc>${alt}\n  </url>`;
   });
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`);
-  fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
+  // llms.txt: a plain summary for AI assistants, built from the pages' own titles and descriptions.
+  const info = d => { const h = fs.readFileSync(path.join(ROOT, d, 'index.html'), 'utf8'); return { t: unesc(h.match(/<title>([^<]*)<\/title>/)?.[1] ?? '').replace(/ — Phan Tr.*$/, ''), d: unesc(h.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '') }; };
+  const list = pre => dirs.filter(d => d.startsWith(pre + path.sep) && d.split(path.sep).length === 2).map(d => `- [${info(d).t}](${url(d)}): ${info(d).d}`).join('\n');
+  fs.writeFileSync(path.join(ROOT, 'llms.txt'), `# Phan Trọng Hậu (Phan Trong Hau)
+
+> ${PERSON.description}
+
+- Full name: Phan Trọng Hậu (written without accents: Phan Trong Hau)
+- Role: Software Engineer, focusing on MLOps; looking for Software Engineer or MLOps roles in Ho Chi Minh City
+- Location: Ho Chi Minh City, Vietnam
+- Experience: Filum AI (Software Engineer, 07/2024 – 09/2026), Mysheo (Software Engineer, 09/2022 – 09/2023), freelance projects
+- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (MLOps)
+- Skills: ${PERSON.knowsAbout.join(', ')}
+- Website: ${SITE}/ (English), ${SITE}/vi/ (Vietnamese)
+- CV (PDF): ${SITE}/assets/Phan_Trong_Hau_CV.pdf
+- LinkedIn: ${PERSON.sameAs[0]}
+- GitHub: ${PERSON.sameAs[1]}
+- Ask his AI assistant Kai: https://kai.phantronghau.com/
+
+## Projects
+
+${list('projects')}
+
+## Writing
+
+${list('blog')}
+`);
+  fs.writeFileSync(path.join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\n# AI assistants and search: welcome\nUser-agent: GPTBot\nAllow: /\nUser-agent: OAI-SearchBot\nAllow: /\nUser-agent: ChatGPT-User\nAllow: /\nUser-agent: ClaudeBot\nAllow: /\nUser-agent: Claude-SearchBot\nAllow: /\nUser-agent: PerplexityBot\nAllow: /\nUser-agent: Google-Extended\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n# Summary for AI: ${SITE}/llms.txt\n`);
   return dirs.length;
 }

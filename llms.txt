@@ -1,0 +1,39 @@
+# Phan Trọng Hậu (Phan Trong Hau)
+
+> Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on MLOps. Formerly at Filum AI and Mysheo.
+
+- Full name: Phan Trọng Hậu (written without accents: Phan Trong Hau)
+- Role: Software Engineer, focusing on MLOps; looking for Software Engineer or MLOps roles in Ho Chi Minh City
+- Location: Ho Chi Minh City, Vietnam
+- Experience: Filum AI (Software Engineer, 07/2024 – 09/2026), Mysheo (Software Engineer, 09/2022 – 09/2023), freelance projects
+- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (MLOps)
+- Skills: Software Engineering, Full-stack development, Next.js, Node.js, Python, Google Cloud Platform, System integrations, AI agents, RAG, MLOps
+- Website: https://www.phantronghau.com/ (English), https://www.phantronghau.com/vi/ (Vietnamese)
+- CV (PDF): https://www.phantronghau.com/assets/Phan_Trong_Hau_CV.pdf
+- LinkedIn: https://www.linkedin.com/in/phan-trong-hau/
+- GitHub: https://github.com/Phan-Trong-Hau
+- Ask his AI assistant Kai: https://kai.phantronghau.com/
+
+## Projects
+
+- [Bida 8 Bi](https://www.phantronghau.com/projects/bida-8-bi/): Online 8-ball pool I vibe coded so my friends and I could finally play together, without lag, bugs, or ads.
+- [claude-notify](https://www.phantronghau.com/projects/claude-notify/): A Claude Code plugin that tells you when Claude has finished or needs your approval, but only when you are not looking at the terminal.
+- [Vietnam Fatherland Front Congress 2026](https://www.phantronghau.com/projects/dh-2026/): A digital exhibition for the 11th National Congress of the Vietnam Fatherland Front, built with its CMS in about four weeks and used on touch-screen kiosks at the congress.
+- [Filum CX](https://www.phantronghau.com/projects/filum-cx/): Filum CX: I designed the reliability layer for 10+ channel integrations, fixed a long-running view-count bug at its root, built AI automations, and cut the first page load from 15 s to about 8 s.
+- [Filum internal tools](https://www.phantronghau.com/projects/filum-internal-tools/): Tools that help Filum’s own teams work faster: an admin dashboard, an AI-powered CV screener, and automated data pipelines.
+- [Filum website](https://www.phantronghau.com/projects/filum-website/): The marketing website and landing pages for Filum AI, built so the marketing team can publish content quickly.
+- [Kai · Hau’s AI assistant](https://www.phantronghau.com/projects/kai/): Kai, a chat assistant that answers questions about me from my CV: it runs in the cloud for $0, with layered guardrails, a public X-ray of every step, and call booking straight into my calendar.
+- [Congress delegate photo frame](https://www.phantronghau.com/projects/khung-anh-dai-hoi/): A photo-frame tool for the Congress of the Ho Chi Minh Communist Youth Union of Đắk Lắk province (term 2025–2030).
+- [Linux NitroSense](https://www.phantronghau.com/projects/linux-nitrosense/): A lightweight replacement for Acer NitroSense on Linux: fan modes, keyboard backlight, and temperature readouts for the Acer Nitro 5.
+- [Lofi Panel](https://www.phantronghau.com/projects/lofi-panel/): A tiny lofi and ambient radio that lives in the Linux top panel, with a dancing pixel cat and 15 curated 24/7 stations.
+- [Mysheo Flex](https://www.phantronghau.com/projects/mysheo-flex/): Campaign landing pages for Mysheo’s English courses, built from scratch and shipped with a team of three.
+- [Mysheo Study](https://www.phantronghau.com/projects/mysheo-study/): A learning management system for Mysheo’s online English classes, taken from scratch to production with a team of seven.
+- [Sen Xanh](https://www.phantronghau.com/projects/sen-xanh/): The website and CMS for Sen Xanh, a life-skills training center for kids and teens aged 6 to 18.
+- [Tạo QR Online](https://www.phantronghau.com/projects/taoqr-online/): A free QR code generator and scanner that runs in the browser: links, Wi-Fi, contact cards, and VietQR bank payments.
+- [Tính Điểm Online](https://www.phantronghau.com/projects/tinhdiem-online/): Tính Điểm Online: a free grade and GPA calculator for Vietnamese students that started as my own pain point and now gets 2,500+ visits a month.
+
+## Writing
+
+- [Using AI to find a security hole in MCP tools on GCP: humans ask the right question, AI does the rest](https://www.phantronghau.com/blog/ai-tim-lo-hong-bao-mat-mcp-gcp/): A vulnerability that leaked GCP access tokens sat in plain sight. Why nobody saw it, and how I worked with AI to find it.
+- [Working with AI in 2026: what I've learned](https://www.phantronghau.com/blog/kinh-nghiem-dung-ai-2026/): Running several AI sessions at once, vibe coding a game, measuring a chatbot with evals instead of gut feeling, and what I still don't hand over to AI.
+- [Learning by questioning: an MVP picture and lessons that are only true within a scope](https://www.phantronghau.com/blog/tu-hoi-de-tu-hoc/): I have a lot of questions about the world. This is how I turn them into lessons, through a very familiar example from product thinking.
