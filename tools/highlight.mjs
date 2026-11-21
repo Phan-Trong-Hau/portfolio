@@ -18,7 +18,7 @@ export function highlight(items, { h1, label }) {
   const mainHtml = `<a class="hl-main" href="${main.href}"><div class="hl-media">${img(main, '(max-width: 860px) 100vw, 740px', true)}</div>`
     + `<div class="hl-text"><span class="hl-tag">${esc(main.tag)}</span><h2>${esc(main.title)}</h2>${main.desc ? `<p>${main.desc}</p>` : ''}${main.meta ? `<span class="hl-meta">${main.meta}</span>` : ''}</div></a>`;
   const sideHtml = side.map(it => `<li><a class="hl-side" href="${it.href}"><div class="hl-thumb">${img(it, '200px', false)}</div>`
-    + `<div class="hl-side-text"><span class="hl-tag">${esc(it.tag)}</span><h3>${esc(it.title)}</h3>${it.desc ? `<p>${it.desc}</p>` : ''}${it.meta ? `<span class="hl-meta">${it.meta}</span>` : ''}</div></a></li>`).join('');
+    + `<div class="hl-side-text"><h3>${esc(it.title)}</h3>${it.desc ? `<p>${it.desc}</p>` : ''}${it.meta ? `<span class="hl-meta">${it.meta}</span>` : ''}</div></a></li>`).join('');
   return `<!-- highlight:start --><h1 class="sr-only">${esc(h1)}</h1><section class="highlight" id="highlight" aria-label="${esc(label)}">${mainHtml}`
     + (side.length ? `<ul class="hl-list">${sideHtml}</ul>` : '') + `</section><!-- highlight:end -->`;
 }

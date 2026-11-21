@@ -322,3 +322,7 @@ body:has(.highlight) .container,body:has(.highlight)>main{width:min(1280px,calc(
 .hl-side-text p{margin:0;color:#4b5563;font-size:14px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .hl-side{grid-template-columns:180px minmax(0,1fr)}
 @media(max-width:860px){.hl-side{grid-template-columns:120px minmax(0,1fr)}.hl-side-text p{-webkit-line-clamp:2}}
+.hl-side-text{gap:8px}
+.hl-side-text h3{font-size:18px;line-height:1.35}
+.hl-side-text p{font-size:15.5px;line-height:1.6;-webkit-line-clamp:4;color:#374151}
+@media(max-width:860px){.hl-side-text h3{font-size:16px}.hl-side-text p{font-size:14.5px;-webkit-line-clamp:3}}
