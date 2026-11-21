@@ -407,3 +407,13 @@ footer.site-footer-wrap{display:block;border-top:0;padding:0;margin-top:48px}
 @media(prefers-reduced-motion:reduce){.lead-plane{animation:none}}
 @media(max-width:860px){.lead-art{width:220px}}
 @media(max-width:700px){.lead-art{display:none}}
+/* Architecture diagram: full-screen button (browser fullscreen, or a fixed overlay where that isn't allowed) */
+.kx-frame{position:relative}
+.kx-fs{position:absolute;top:10px;right:10px;z-index:3;display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:rgba(255,255,255,.94);color:var(--text);font:inherit;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 2px 8px rgba(31,35,40,.06)}
+.kx-fs:hover{color:var(--accent);border-color:var(--accent)}.kx-fs svg{width:16px;height:16px}
+.kx-frame.kx-full{position:fixed;inset:0;z-index:100;border-radius:0;border:0;background:#fff;display:flex;flex-direction:column}
+.kx-frame.kx-full .kx-view{flex:1;overflow:auto;display:grid;place-items:center;padding:56px 24px 24px}
+.kx-frame.kx-full .kx-svg{width:min(100%,1800px);min-width:1100px}
+.kx-frame:fullscreen{background:#fff}
+html.kx-lock,html.kx-lock body{overflow:hidden}
+.kx-frame:not(.kx-full):not(:fullscreen){padding-top:52px}
