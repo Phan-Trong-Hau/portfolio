@@ -20,7 +20,7 @@ import { syncFeaturedProjects } from './projects.mjs';
 import { syncSeo } from './seo.mjs';
 import { syncProjectNav, topnav } from './topnav.mjs';
 import { syncHomeExtras } from './home-extras.mjs';
-import { highlight, syncProjectHighlight } from './highlight.mjs';
+import { syncProjectHighlight } from './highlight.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
@@ -188,19 +188,13 @@ for (const lang of LANGS) {
   const root = lang === 'en' ? '../' : '../../';
 
   // blog index
-  // First screen: the featured post (or the newest) large, the next three beside it; the rest below.
+  // First screen: the featured post (or the newest) as a large card, the next two as smaller cards
+  // stacked beside it; any further posts in the grid below.
   const top = list.find(p => p.featured && !p.draft) ?? list[0];
-  const first = top ? [top, ...list.filter(p => p !== top).slice(0, 3)] : [];
+  const first = top ? [top, ...list.filter(p => p !== top).slice(0, 2)] : [];
   const rest = list.filter(p => !first.includes(p));
-  const item = p => {
-    const href = postHref(p, lang, 'index');
-    return {
-      href, img: p.cover ? `${href}${p.cover}` : `${root}assets/favicon.svg`, alt: '',
-      tag: p.tags[0] ? `#${p.tags[0]}` : u.blog, title: p.title, desc: p.description ? esc(p.description) : '',
-      meta: `${UI[p.lang].date(p.date)} · ${UI[p.lang].min(p.minutes)}`,
-    };
-  };
-  const listHtml = (first.length ? highlight(first.map(item), { h1: u.blogTitle, label: u.featured }) : `<h1 class="sr-only">${u.blogTitle}</h1><p class="post-empty">${u.empty}</p>`)
+  const listHtml = `<h1 class="sr-only">${u.blogTitle}</h1>`
+    + (first.length ? `<section class="blog-feature" aria-label="${u.featured}"><ul class="post-grid blog-feature-grid">${first.map((p, i) => card(p, lang, 'index', i === 0 ? 'h2' : 'h3')).join('')}</ul></section>` : `<p class="post-empty">${u.empty}</p>`)
     + (rest.length ? `<section class="blog-body" id="all"><ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul></section>` : '');
   write(path.join(outDir(lang), 'index.html'), shell({
     lang, root, title: `${u.blogTitle} — ${u.name}`, description: u.blogLead,
