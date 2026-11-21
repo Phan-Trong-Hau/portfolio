@@ -376,3 +376,21 @@ footer.site-footer-wrap{display:block;border-top:0;padding:0;margin-top:48px}
 .lead-copy{flex:1 1 auto;min-width:0}
 .lead-copy p{max-width:none}
 .lead-form{flex:0 1 480px}
+/* Lead CTA: copy and form on the left, a playful Kai on the right */
+.lead-inner{align-items:center;gap:40px}
+.lead-main{flex:1 1 auto;min-width:0;display:flex;flex-direction:column;gap:18px;max-width:620px}
+.lead-main .lead-form{flex:none;justify-content:flex-start;max-width:520px;width:100%}
+.lead-art{position:relative;flex:0 0 auto;width:300px;height:200px;display:grid;place-items:center}
+.lead-art img{width:150px;height:150px;border-radius:50%;box-shadow:0 10px 30px rgba(204,61,102,.18);animation:lead-bob 3.2s ease-in-out infinite}
+.lead-bubble{position:absolute;top:4px;right:0;background:#fff;border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--text);box-shadow:0 6px 16px rgba(31,35,40,.08);white-space:nowrap}
+.lead-float{position:absolute;display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#fff;color:var(--accent);box-shadow:0 6px 16px rgba(40,81,200,.14);animation:lead-float 4s ease-in-out infinite}
+.lead-float svg{width:18px;height:18px}
+.lead-float.f1{left:20px;top:60px}.lead-float.f2{right:24px;bottom:14px;animation-delay:-1.3s}
+.lead-float.f3{left:56px;bottom:8px;width:30px;height:30px;font-size:15px;color:#cc3d66;animation-delay:-2.4s}
+@keyframes lead-bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-6px) rotate(2deg)}}
+@keyframes lead-float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+@media(prefers-reduced-motion:reduce){.lead-art img,.lead-float{animation:none}}
+@media(max-width:700px){.lead-art{display:none}.lead-main{max-width:none}}
+.lead-bubble{z-index:2;top:-4px;right:-6px}
+.lead-art img{margin-top:34px}
+.lead-art{height:220px}
