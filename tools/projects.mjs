@@ -21,7 +21,7 @@ export function syncFeaturedProjects(ROOT) {
       const card = cards.get(slug);
       if (!card) throw new Error(`${list}: no card for featured project "${slug}"`);
       // list page sits one folder deeper than its home page
-      return card.replace(/href="([^"/]+)\/"/, 'href="projects/$1/"').replace(/(src|srcset)="\.\.\//g, '$1="').replace(/, \.\.\//g, ', ');
+      return card.replace(/ data-hl="1" hidden/, '').replace(/href="([^"/]+)\/"/, 'href="projects/$1/"').replace(/(src|srcset)="\.\.\//g, '$1="').replace(/, \.\.\//g, ', ');
     });
     const file = path.join(ROOT, home);
     const s = fs.readFileSync(file, 'utf8');

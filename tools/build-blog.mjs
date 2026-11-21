@@ -20,6 +20,7 @@ import { syncFeaturedProjects } from './projects.mjs';
 import { syncSeo } from './seo.mjs';
 import { syncProjectNav, topnav } from './topnav.mjs';
 import { syncHomeExtras } from './home-extras.mjs';
+import { highlight, syncProjectHighlight } from './highlight.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
@@ -150,19 +151,6 @@ function card(p, lang, where = 'index', h = 'h2') {
     + `<span class="post-foot">${tags}<span class="post-read">${u.read} <span aria-hidden="true">→</span></span></span></div></a></li>`;
 }
 
-// The featured post on the blog index (front matter `featured: true`): a wide card above the grid.
-function featuredCard(p, lang) {
-  const u = UI[lang];
-  const href = postHref(p, lang, 'index');
-  const L = p.lang !== lang ? ` lang="${p.lang}"` : '';
-  const cover = p.cover ? `<img src="${href}${esc(p.cover)}" width="1200" height="675" alt="">` : `<span class="post-cover-ph">${esc(p.tags[0] ? '#' + p.tags[0] : u.blog)}</span>`;
-  return `<section class="featured" aria-label="${u.featured}"><a class="featured-card" href="${href}"><div class="featured-media">${cover}</div><div class="featured-body">`
-    + `<p class="label">${u.featured.toUpperCase()}</p><h2${L}>${esc(p.title)}</h2>`
-    + (p.description ? `<p class="featured-lead"${L}>${esc(p.description)}</p>` : '')
-    + `<span class="post-meta"><time datetime="${p.date.toISOString().slice(0, 10)}">${UI[p.lang].date(p.date)}</time> · ${UI[p.lang].min(p.minutes)}</span>`
-    + `<span class="post-read">${u.read} <span aria-hidden="true">→</span></span></div></a></section>`;
-}
-
 function shell({ lang, root, title, description, enHref, viHref, body, back, backHref }) {
   const u = UI[lang];
   return `<!doctype html>
@@ -200,14 +188,25 @@ for (const lang of LANGS) {
   const root = lang === 'en' ? '../' : '../../';
 
   // blog index
-  const top = list.find(p => p.featured && !p.draft);
-  const rest = list.filter(p => p !== top);
-  const listHtml = (top ? featuredCard(top, lang) : '') + (rest.length ? `<ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul>` : top ? '' : `<p class="post-empty">${u.empty}</p>`);
+  // First screen: the featured post (or the newest) large, the next three beside it; the rest below.
+  const top = list.find(p => p.featured && !p.draft) ?? list[0];
+  const first = top ? [top, ...list.filter(p => p !== top).slice(0, 3)] : [];
+  const rest = list.filter(p => !first.includes(p));
+  const item = p => {
+    const href = postHref(p, lang, 'index');
+    return {
+      href, img: p.cover ? `${href}${p.cover}` : `${root}assets/favicon.svg`, alt: '',
+      tag: p.tags[0] ? `#${p.tags[0]}` : u.blog, title: p.title, desc: p.description ? esc(p.description) : '',
+      meta: `${UI[p.lang].date(p.date)} · ${UI[p.lang].min(p.minutes)}`,
+    };
+  };
+  const listHtml = (first.length ? highlight(first.map(item), { h1: u.blogTitle, label: u.featured }) : `<h1 class="sr-only">${u.blogTitle}</h1><p class="post-empty">${u.empty}</p>`)
+    + (rest.length ? `<section class="blog-body"><ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul></section>` : '');
   write(path.join(outDir(lang), 'index.html'), shell({
     lang, root, title: `${u.blogTitle} — ${u.name}`, description: u.blogLead,
     enHref: lang === 'en' ? './' : '../../blog/', viHref: lang === 'en' ? '../vi/blog/' : './',
     back: null, backHref: null,
-    body: `<section class="blog-hero" aria-labelledby="blog-title"><p class="label">${u.blog.toUpperCase()}</p><h1 id="blog-title">${u.blogTitle}</h1><p class="intro-text">${u.blogLead}</p>${list.length ? `<p class="blog-count">${u.count(list.length)}</p>` : ''}</section>\n<section class="blog-body">${listHtml}</section>`,
+    body: listHtml,
   }));
 
   // posts
@@ -247,6 +246,7 @@ for (const lang of LANGS) {
 
 const synced = syncStaticFooters(ROOT);
 const featured = syncFeaturedProjects(ROOT);
+syncProjectHighlight(ROOT);
 const navved = syncProjectNav(ROOT);
 syncHomeExtras(ROOT, lang => listing(lang).filter(p => !p.draft).length);
 const indexed = syncSeo(ROOT);
