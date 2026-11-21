@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="4zWluxktiTapGxPk52J-zz-eBmtZgL09MhFLPgTqvlY">
-<meta name="description" content="Filum CX: I designed the reliability layer for 10+ channel integrations, fixed a long-running view-count bug at its root, built AI automations, and cut customer page load from 15 s to about 8 s.">
+<meta name="description" content="Filum CX: I designed the reliability layer for 10+ channel integrations, fixed a long-running view-count bug at its root, built AI automations, and cut the first page load from 15 s to about 8 s.">
 <meta name="theme-color" content="#fafafa"><title>Filum CX — Phan Trong Hau</title>
 <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="./">
 <link rel="alternate" hreflang="vi" href="../../vi/projects/filum-cx/">
@@ -18,7 +18,7 @@
 <section class="section section-after-shot" aria-labelledby="summary-title"><div class="section-heading"><h2 id="summary-title">At a glance</h2></div>
 <div class="stat-grid">
 <div class="stat"><b>0%</b><span>Facebook comments left unanswered after the AI auto-reply flow, where a person used to watch and reply by hand</span></div>
-<div class="stat"><b>15s → ~8s</b><span>page load time for customers, after reordering and deferring API calls</span></div>
+<div class="stat"><b>15s → ~8s</b><span>first page load on a low-end machine, after reordering and deferring API calls (later loads take about 5 s)</span></div>
 <div class="stat"><b>Hours → instant</b><span>time for a developer to find why an integration failed, down from half a day to a full day</span></div>
 <div class="stat"><b>10+</b><span>channels covered by the monitoring, logging, and retry system I designed, rolled out in about a month</span></div>
 </div>
@@ -36,15 +36,15 @@
 <thead><tr><th>Kind of failure</th><th>Before</th><th>After</th></tr></thead>
 <tbody>
 <tr><td>Expired credential (token, login)</td><td>Found by the customer. 2–3 hours of back-and-forth for an experienced developer, about half a day for a newer one, then the customer re-authorizes</td><td>The customer sees the connection is about to expire, or has expired, and re-authorizes it themselves, before anything stops working</td></tr>
-<tr><td>Infrastructure (Cloud Function out of memory, traffic spike, channel API errors)</td><td>Half a day to a full day to find the cause, then the missed data had to be re-run by hand for the customer</td><td>The cause is visible right away in centralized logs. Failed jobs retry automatically, and if a retry still fails, the team gets an alert in its internal channel</td></tr>
+<tr><td>Infrastructure (Cloud Function out of memory, traffic spike, channel API errors)</td><td>Half a day to a full day to find the cause, then the missed data had to be re-run by hand for the customer</td><td>The cause is visible right away in centralized logs. Failed jobs retry up to 3 times, waiting longer each time; if they still fail, the customer organization’s admins are notified through Lark or in the app</td></tr>
 </tbody></table></div>
 <ol class="steps">
 <li><strong>Credential monitoring</strong>Tracks the state of every connection and shows customers when one is close to expiring, so they can re-authorize it in time.</li>
 <li><strong>Centralized logging</strong>Logs from all integrations in one place, so a failure points straight at its cause instead of a long trace.</li>
-<li><strong>Automatic retries</strong>Data that failed to sync is processed again without anyone re-running it.</li>
-<li><strong>Internal alerts</strong>When retries are not enough, the team is told first, often before the customer would notice.</li>
+<li><strong>Automatic retries</strong>Data that failed to sync is processed again without anyone re-running it: up to 3 times with exponential backoff (the wait multiplies after each try), so a struggling API isn’t hammered.</li>
+<li><strong>Alerts to the right people</strong>When retries still fail, the organization’s super admin or admins get a notification through Lark or right in the app, often before their own customers would notice.</li>
 </ol>
-<div class="note-box"><strong>Result:</strong> support moved from “the customer reports a bug” to “the team already knows, and customers can fix the most common issue themselves”. I also cut monthly logging costs by 60%, from $500 to $200, by removing redundant logs and tuning Cloud Run resources.</div>
+<div class="note-box"><strong>Result:</strong> support moved from “the customer reports a bug” to “the team already knows, and customers can fix the most common issue themselves”. I also cut monthly logging costs by 60%, from $500 to $200: I removed duplicate logs and logs left over from development, and set the minimum instances to 0 for functions that don’t need to run in the background (every function had been kept warm with 1 instance).</div>
 </section>
 
 <section class="section" aria-labelledby="bug-title"><div class="section-heading"><h2 id="bug-title">The hardest bug: a view count that was always wrong</h2></div>
@@ -56,7 +56,7 @@
 
 <section class="section" aria-labelledby="auto-title"><div class="section-heading"><h2 id="auto-title">Automation and AI</h2></div>
 <div class="feature-grid">
-<div><h3>AI replies to Facebook comments</h3><p>Set up an automation where AI answers customers’ Facebook comments. Before, someone had to watch the page and reply by hand. Now no comment goes unanswered.</p></div>
+<div><h3>AI replies to Facebook comments</h3><p>Set up an automation where AI answers customers’ Facebook comments from each business’s own knowledge base: its policies, FAQs and tools. Sensitive comments get no AI reply; they are flagged and handed to a person. Before, someone had to watch the page and reply by hand; now no comment goes unanswered.</p></div>
 <div><h3>An Agent node for any workflow</h3><p>Built an Agent node that can be invoked inside other automation flows, so AI agents become a building block customers can drop into their own workflows.</p></div>
 <div><h3>Triggers and actions</h3><p>Helped build the automation system with 10+ triggers and 10+ actions.</p></div>
 </div></section>
@@ -64,9 +64,16 @@
 <section class="section" aria-labelledby="conv-title"><div class="section-heading"><h2 id="conv-title">Conversations, tickets, and speed</h2></div>
 <div class="feature-grid">
 <div><h3>SLA and attributes</h3><p>Added SLAs and custom attributes to conversations and tickets, so support teams see what is about to breach and can classify requests.</p></div>
-<div><h3>15 s to about 8 s</h3><p>Reordered the API calls: what loads first, what can wait, and what is not called until the user opens that part. Page load for customers dropped from 15 seconds to just over 8.</p></div>
+<div><h3>First load: 15 s to about 8 s</h3><p>On a low-end machine the first page load took up to 15 seconds (later loads about 5). I found the bottleneck with DevTools and by timing each API call, then reordered them: what loads first, what can wait, and what is not called until the user opens that part. The first load dropped to about 8 seconds.</p></div>
 <div><h3>Lighter frontend</h3><p>Lazy loading, tree shaking, list virtualization, and render optimization to cut wasted work in the browser.</p></div>
 <div><h3>10 channels I integrated</h3><p>Of the 80+ integrations the platform supports, I integrated 10 channels myself, including Messenger, Zalo OA, and 3CX, into the central conversation manager.</p></div>
+</div></section>
+
+<section class="section" aria-labelledby="team-title"><div class="section-heading"><h2 id="team-title">How the team worked</h2></div>
+<div class="feature-grid">
+<div><h3>Weekly sprints</h3><p>One-week sprints, with a check-in each morning and a check-out each evening, so everyone knew who was doing what and where they were stuck.</p></div>
+<div><h3>AI at every step</h3><p>Taking a task, high-level design, detailed design, code, code review, security review and basic feature testing all ran with AI. The CTO merged and deployed.</p></div>
+<div><h3>Guiding interns</h3><p>I guided the interns building side products: admin pages, landing pages and event pages.</p></div>
 </div></section>
 
 <section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">How it works</h2></div>

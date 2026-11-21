@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="google-site-verification" content="4zWluxktiTapGxPk52J-zz-eBmtZgL09MhFLPgTqvlY">
-<meta name="description" content="Filum CX: mình thiết kế lớp giám sát cho hơn 10 kênh tích hợp, sửa tận gốc lỗi đếm hội thoại sai kéo dài, làm automation AI và giảm thời gian tải trang từ 15 giây xuống khoảng 8 giây.">
+<meta name="description" content="Filum CX: mình thiết kế lớp giám sát cho hơn 10 kênh tích hợp, sửa tận gốc lỗi đếm hội thoại sai kéo dài, làm automation AI và giảm lần tải trang đầu từ 15 giây xuống khoảng 8 giây.">
 <meta name="theme-color" content="#fafafa"><title>Filum CX — Phan Trọng Hậu</title>
 <link rel="icon" href="../../../assets/favicon.svg" type="image/svg+xml"><link rel="alternate" hreflang="en" href="../../../projects/filum-cx/">
 <link rel="alternate" hreflang="vi" href="./">
@@ -18,7 +18,7 @@
 <section class="section section-after-shot" aria-labelledby="summary-title"><div class="section-heading"><h2 id="summary-title">Tóm tắt nhanh</h2></div>
 <div class="stat-grid">
 <div class="stat"><b>0%</b><span>comment Facebook bị bỏ sót sau khi có luồng AI tự trả lời, trước đó phải có người trực trả lời tay</span></div>
-<div class="stat"><b>15s → ~8s</b><span>thời gian tải trang của khách hàng, nhờ sắp xếp lại và trì hoãn các lệnh gọi API</span></div>
+<div class="stat"><b>15s → ~8s</b><span>lần tải trang đầu tiên trên máy cấu hình thấp, nhờ sắp xếp lại và trì hoãn các lệnh gọi API (các lần sau khoảng 5 giây)</span></div>
 <div class="stat"><b>Vài giờ → tức thì</b><span>thời gian dev tìm ra nguyên nhân lỗi tích hợp, trước đây mất từ một buổi tới một ngày</span></div>
 <div class="stat"><b>10+</b><span>kênh được hệ thống giám sát, log và retry do mình thiết kế bao phủ, triển khai trong khoảng một tháng</span></div>
 </div>
@@ -36,15 +36,15 @@
 <thead><tr><th>Loại lỗi</th><th>Trước</th><th>Sau</th></tr></thead>
 <tbody>
 <tr><td>Credential hết hạn (token, đăng nhập)</td><td>Khách phát hiện. Người có kinh nghiệm mất 2–3 giờ trao đổi, người mới mất khoảng một buổi, rồi khách mới re-auth</td><td>Khách tự thấy kết nối sắp hết hạn hoặc đã hết hạn và tự re-auth, trước khi có gì bị gián đoạn</td></tr>
-<tr><td>Hạ tầng (Cloud Function thiếu RAM, traffic tăng đột biến, API của kênh lỗi)</td><td>Mất một buổi tới một ngày để tìm nguyên nhân, sau đó phải chạy lại dữ liệu bị lỡ bằng tay cho khách</td><td>Thấy nguyên nhân ngay trong log tập trung. Tác vụ lỗi tự retry, nếu retry vẫn không được thì team nhận cảnh báo trong kênh nội bộ</td></tr>
+<tr><td>Hạ tầng (Cloud Function thiếu RAM, traffic tăng đột biến, API của kênh lỗi)</td><td>Mất một buổi tới một ngày để tìm nguyên nhân, sau đó phải chạy lại dữ liệu bị lỡ bằng tay cho khách</td><td>Thấy nguyên nhân ngay trong log tập trung. Tác vụ lỗi tự thử lại tối đa 3 lần, mỗi lần chờ lâu hơn lần trước; vẫn lỗi thì admin của tổ chức khách hàng được báo qua Lark hoặc thông báo trong app</td></tr>
 </tbody></table></div>
 <ol class="steps">
 <li><strong>Theo dõi credential</strong>Theo dõi trạng thái mọi kết nối và cho khách thấy khi nào sắp hết hạn, để họ re-auth kịp lúc.</li>
 <li><strong>Log tập trung</strong>Log của mọi tích hợp ở một chỗ, nên lỗi chỉ thẳng tới nguyên nhân thay vì phải trace mất nhiều giờ.</li>
-<li><strong>Tự động retry</strong>Dữ liệu đồng bộ lỗi được xử lý lại mà không cần ai chạy tay.</li>
-<li><strong>Cảnh báo nội bộ</strong>Khi retry không đủ, team được báo trước, thường là trước cả khi khách kịp nhận ra.</li>
+<li><strong>Tự động thử lại</strong>Dữ liệu đồng bộ lỗi được xử lý lại mà không cần ai chạy tay: tối đa 3 lần, theo exponential backoff (khoảng chờ tăng gấp bội sau mỗi lần), để không dội thêm tải vào một API đang lỗi.</li>
+<li><strong>Cảnh báo đúng người</strong>Khi thử lại vẫn không được, super admin hoặc admin của tổ chức đó nhận thông báo qua Lark hoặc ngay trong app, thường là trước cả khi khách hàng của họ kịp nhận ra.</li>
 </ol>
-<div class="note-box"><strong>Kết quả:</strong> việc hỗ trợ chuyển từ “khách báo lỗi” sang “team đã biết trước, và khách tự xử lý được loại lỗi phổ biến nhất”. Mình cũng giảm 60% chi phí log mỗi tháng, từ 500 xuống 200 USD, bằng cách bỏ log thừa và tinh chỉnh tài nguyên Cloud Run.</div>
+<div class="note-box"><strong>Kết quả:</strong> việc hỗ trợ chuyển từ “khách báo lỗi” sang “team đã biết trước, và khách tự xử lý được loại lỗi phổ biến nhất”. Mình cũng giảm 60% chi phí log mỗi tháng, từ 500 xuống 200 USD: bỏ log trùng lặp và log còn sót lại từ lúc phát triển, và hạ số instance tối thiểu về 0 cho những function không cần chạy nền (trước đó mọi function đều để sẵn 1 instance chạy liên tục).</div>
 </section>
 
 <section class="section" aria-labelledby="bug-title"><div class="section-heading"><h2 id="bug-title">Lỗi khó nhất: số đếm hội thoại luôn sai</h2></div>
@@ -56,7 +56,7 @@
 
 <section class="section" aria-labelledby="auto-title"><div class="section-heading"><h2 id="auto-title">Automation và AI</h2></div>
 <div class="feature-grid">
-<div><h3>AI trả lời comment Facebook</h3><p>Dựng luồng automation để AI tự trả lời comment Facebook cho khách hàng. Trước đây phải có người trực page trả lời tay. Giờ không còn comment nào bị bỏ sót.</p></div>
+<div><h3>AI trả lời comment Facebook</h3><p>Dựng luồng automation để AI tự trả lời comment Facebook cho khách hàng. AI trả lời dựa trên kho kiến thức riêng của từng doanh nghiệp: chính sách, FAQ, công cụ của họ. Comment nhạy cảm thì AI không trả lời, mà đánh dấu và chuyển cho nhân viên xử lý. Trước đây phải có người trực page trả lời tay; giờ không còn comment nào bị bỏ sót.</p></div>
 <div><h3>Node Agent cho mọi workflow</h3><p>Xây node Agent có thể gọi trong các luồng automation khác, biến AI agent thành một khối dựng sẵn mà khách tự ghép vào workflow của họ.</p></div>
 <div><h3>Trigger và action</h3><p>Cùng xây hệ thống automation với hơn 10 trigger và hơn 10 action.</p></div>
 </div></section>
@@ -64,9 +64,16 @@
 <section class="section" aria-labelledby="conv-title"><div class="section-heading"><h2 id="conv-title">Conversation, ticket và tốc độ</h2></div>
 <div class="feature-grid">
 <div><h3>SLA và attribute</h3><p>Thêm SLA và thuộc tính tuỳ chỉnh cho conversation và ticket, để đội CSKH thấy việc nào sắp trễ hạn và phân loại được yêu cầu.</p></div>
-<div><h3>Từ 15 giây xuống khoảng 8 giây</h3><p>Sắp xếp lại các lệnh gọi API: cái nào tải trước, cái nào chờ được, cái nào chưa cần gọi cho tới khi người dùng mở phần đó. Thời gian tải trang của khách giảm từ 15 giây xuống hơn 8 giây.</p></div>
+<div><h3>Lần tải đầu: từ 15 giây xuống khoảng 8 giây</h3><p>Trên máy cấu hình thấp, lần mở trang đầu tiên mất tới 15 giây (các lần sau khoảng 5 giây). Mình dùng DevTools và tự bấm giờ từng lệnh gọi API để tìm chỗ nghẽn, rồi sắp xếp lại: cái nào tải trước, cái nào chờ được, cái nào chưa cần gọi cho tới khi người dùng mở phần đó. Lần tải đầu giảm xuống khoảng 8 giây.</p></div>
 <div><h3>Frontend nhẹ hơn</h3><p>Lazy loading, tree shaking, ảo hoá danh sách và tối ưu render để bớt việc thừa trên trình duyệt.</p></div>
 <div><h3>10 kênh do mình tích hợp</h3><p>Trong hơn 80 tích hợp mà nền tảng hỗ trợ, mình trực tiếp tích hợp 10 kênh, gồm Messenger, Zalo OA và 3CX, vào trình quản lý hội thoại chung.</p></div>
+</div></section>
+
+<section class="section" aria-labelledby="team-title"><div class="section-heading"><h2 id="team-title">Cách team làm việc</h2></div>
+<div class="feature-grid">
+<div><h3>Sprint theo tuần</h3><p>Mỗi sprint kéo dài một tuần, có check-in đầu ngày và check-out cuối ngày để cả team biết ai đang làm gì và vướng ở đâu.</p></div>
+<div><h3>AI ở mọi bước</h3><p>Từ lúc nhận task, thiết kế tổng quan, thiết kế chi tiết, viết code, review code, review bảo mật cho tới test tính năng cơ bản, mọi bước đều có AI hỗ trợ. CTO là người merge và deploy.</p></div>
+<div><h3>Hướng dẫn intern</h3><p>Mình hướng dẫn các bạn intern làm những sản phẩm phụ: trang quản trị, landing page và trang sự kiện.</p></div>
 </div></section>
 
 <section class="section" aria-labelledby="tech-title"><div class="section-heading"><h2 id="tech-title">Cách hoạt động</h2></div>
