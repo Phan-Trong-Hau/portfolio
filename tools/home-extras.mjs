@@ -1,5 +1,5 @@
 // Home page extras kept in sync by `node tools/build-blog.mjs`:
-// - the contact icons under the portrait (same links as the footer);
+// - email, phone and LinkedIn under the portrait (the footer has every link);
 // - how many projects and posts there are, next to the "Projects" and "Writing" headings.
 
 import fs from 'node:fs';
@@ -16,7 +16,7 @@ export function syncHomeExtras(ROOT, postCount) {
     const posts = postCount(lang);
 
     // Contact icons under the portrait.
-    const nav = `<!-- social:start -->${socialNav(lang, 'portrait-social')}<!-- social:end -->`;
+    const nav = `<!-- social:start -->${socialNav(lang, 'portrait-social', ['email', 'phone', 'linkedin'])}<!-- social:end -->`;
     s = SOCIAL.test(s) ? s.replace(SOCIAL, nav) : s.replace(/(<figure class="portrait">[\s\S]*?<\/picture>)/, `$1${nav}`);
 
     // Counts beside the section headings and on the "see all" links.
