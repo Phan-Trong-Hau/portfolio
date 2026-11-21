@@ -278,3 +278,11 @@
 .featured-stats li{font-size:13px;color:var(--muted)}.featured-stats b{display:block;font-size:20px;color:var(--text);font-variant-numeric:tabular-nums}
 .featured-card .post-read{color:var(--accent);font-size:14px;font-weight:600;margin-top:4px}
 @media(max-width:760px){.featured-card{grid-template-columns:1fr}.featured-body{padding:22px}.featured-body h2{font-size:22px}}
+/* Contact icons under the home portrait, and counts beside section headings */
+.portrait-social{display:flex;justify-content:center;flex-wrap:wrap;gap:4px;margin-top:22px}
+.portrait-social a{width:36px;height:36px;display:grid;place-items:center;border-radius:10px;color:var(--muted);transition:color .2s,background .2s}
+.portrait-social a:hover{color:var(--accent);background:#eef2fc;text-decoration:none}
+.portrait-social svg{width:18px;height:18px}
+.portrait-social rect[fill]{fill:currentColor}
+.heading-count{display:inline-block;margin-left:10px;padding:1px 10px;border-radius:999px;background:#eef2fc;color:var(--accent);font-size:14px;font-weight:650;vertical-align:middle;letter-spacing:0}
+@media(max-width:700px){.portrait-social{margin-top:14px;justify-content:flex-start;width:max-content;max-width:calc(100vw - 40px)}}

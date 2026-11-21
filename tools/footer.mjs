@@ -36,6 +36,16 @@ function toTop(label) {
 }
 
 // root: relative path to the site root ('' , '../', '../../' …)
+/** The contact icons as a <nav> with the given class (the footer's, or the row under the home portrait). */
+export function socialNav(lang, cls) {
+  const t = T[lang];
+  const icons = LINKS.map(([k, en, vi, href, ext]) => {
+    const label = lang === 'vi' ? vi : en;
+    return `<a href="${href}" aria-label="${label}" title="${label}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${ICON[k]}</a>`;
+  }).join('');
+  return `<nav class="${cls}" aria-label="${t.contact}">${icons}</nav>`;
+}
+
 export function footer(lang, root) {
   const t = T[lang];
   const icons = LINKS.map(([k, en, vi, href, ext]) => {

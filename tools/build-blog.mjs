@@ -19,6 +19,7 @@ import { footer, syncStaticFooters } from './footer.mjs';
 import { syncFeaturedProjects } from './projects.mjs';
 import { syncSeo } from './seo.mjs';
 import { syncProjectNav, topnav } from './topnav.mjs';
+import { syncHomeExtras } from './home-extras.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
@@ -247,6 +248,7 @@ for (const lang of LANGS) {
 const synced = syncStaticFooters(ROOT);
 const featured = syncFeaturedProjects(ROOT);
 const navved = syncProjectNav(ROOT);
+syncHomeExtras(ROOT, lang => listing(lang).filter(p => !p.draft).length);
 const indexed = syncSeo(ROOT);
 const count = l => posts.filter(p => p.lang === l).length;
 console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}; footer synced on ${synced} page(s); ${featured} featured project(s) on home; ${indexed} page(s) in sitemap.xml`);
