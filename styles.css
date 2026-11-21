@@ -286,51 +286,57 @@
 .portrait-social rect[fill]{fill:currentColor}
 .heading-count{display:inline-block;margin-left:10px;padding:1px 10px;border-radius:999px;background:#eef2fc;color:var(--accent);font-size:14px;font-weight:650;vertical-align:middle;letter-spacing:0}
 @media(max-width:700px){.portrait-social{margin-top:14px;justify-content:flex-start;width:max-content;max-width:calc(100vw - 40px)}}
-/* Listing first screen: one main item (image, text below it, no card) + three smaller ones on the right */
+/* ===== Listing pages (projects/, blog/): first screen = 1 main item + 3 side items =====
+   Tweak here. Built by tools/highlight.mjs (markup) and tools/build-blog.mjs. */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.highlight{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:40px;padding:72px 0 0;margin-bottom:112px}
+
+/* Page width on the listing pages (other pages keep .container's 1120px) */
+body:has(.highlight) .container,body:has(.highlight)>main{width:min(1280px,calc(100% - 32px))}
+
+/* The block: two columns (main | side list); space above it and before the filter/grid below */
+.highlight{display:grid;grid-template-columns:minmax(0,1.85fr) minmax(0,1fr);gap:40px;align-items:stretch;padding:28px 0 0;margin-bottom:36px}
+.highlight[hidden]{display:none}
+
+/* Main item: image, then plain text under it (no card) */
 .hl-main{display:flex;flex-direction:column;gap:16px;color:inherit}
 .hl-main:hover{text-decoration:none;color:inherit}
 .hl-media{border-radius:14px;overflow:hidden;background:#eef2fb;border:1px solid var(--line)}
 .hl-media img{display:block;width:100%;height:auto;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.hl-main:hover .hl-media img,.hl-side:hover .hl-thumb img{transform:scale(1.03)}
 .hl-text{display:flex;flex-direction:column;gap:8px}
-.hl-text h2{font-size:30px;line-height:1.25;letter-spacing:-.6px;margin:0}
-.hl-main:hover h2,.hl-side:hover h3{color:var(--accent)}
-.hl-text p{margin:0;color:#4b5563;font-size:16px;max-width:62ch}
+.hl-text h2{font-size:36px;line-height:1.25;letter-spacing:-.6px;margin:0}
+.hl-text p{margin:0;color:#4b5563;font-size:18px;max-width:62ch}
 .hl-tag{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:var(--accent);font-weight:650}
 .hl-meta{font-size:13px;color:var(--muted)}
-.hl-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:22px}
-.hl-side{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;align-items:start;color:inherit}
+
+/* Side items: thumbnail left, title + description right, spread over the main item's height */
+.hl-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;justify-content:space-between;gap:22px}
+.hl-list li+li{padding-top:22px;border-top:1px solid var(--line)}
+.hl-side{display:grid;grid-template-columns:180px minmax(0,1fr);gap:16px;align-items:start;color:inherit}
 .hl-side:hover{text-decoration:none;color:inherit}
 .hl-thumb{border-radius:10px;overflow:hidden;background:#eef2fb;border:1px solid var(--line)}
 .hl-thumb img{display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.hl-side-text{display:flex;flex-direction:column;gap:5px}
-.hl-side-text h3{font-size:16px;line-height:1.4;margin:0}
-.hl-list li+li{padding-top:22px;border-top:1px solid var(--line)}
-.highlight[hidden]{display:none}
-@media(max-width:860px){.highlight{grid-template-columns:1fr;gap:28px;padding-top:40px;margin-bottom:72px}.hl-text h2{font-size:24px}.hl-side{grid-template-columns:120px minmax(0,1fr)}}
+.hl-side-text{display:flex;flex-direction:column;gap:8px}
+.hl-side-text h3{font-size:18px;line-height:1.35;margin:0}
+.hl-side-text p{margin:0;color:#374151;font-size:15.5px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+
+/* Hover */
+.hl-main:hover .hl-media img,.hl-side:hover .hl-thumb img{transform:scale(1.03)}
+.hl-main:hover h2,.hl-side:hover h3{color:var(--accent)}
+
+/* Phones and narrow tablets: one column */
+@media(max-width:860px){
+.highlight{grid-template-columns:1fr;gap:28px;padding-top:28px;margin-bottom:64px}
+.hl-text h2{font-size:26px}.hl-text p{font-size:16px}
+.hl-side{grid-template-columns:120px minmax(0,1fr)}
+.hl-side-text h3{font-size:16px}.hl-side-text p{font-size:14.5px;-webkit-line-clamp:3}
+}
+
 /* Footer at least at the bottom of the screen when a page is shorter than one screen */
 body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 body>main{flex:1 0 auto;width:min(1120px,calc(100% - 48px))}
 body>footer{flex-shrink:0}
 @media(max-width:700px){body>main{width:calc(100% - 32px)}}
-/* Listing pages (projects, blog): wider layout, and the highlight fills the first screen so the rest starts below the fold */
-body:has(.highlight) .container,body:has(.highlight)>main{width:min(1280px,calc(100% - 32px))}
-.highlight{min-height:calc(100vh - 60px);min-height:calc(100svh - 60px);align-content:center;padding:32px 0;margin-bottom:56px;box-sizing:border-box}
-@media(max-width:860px){.highlight{min-height:0;padding-top:28px;margin-bottom:64px}}
-.hl-side-text p{margin:0;color:#4b5563;font-size:14px;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.hl-side{grid-template-columns:180px minmax(0,1fr)}
-@media(max-width:860px){.hl-side{grid-template-columns:120px minmax(0,1fr)}.hl-side-text p{-webkit-line-clamp:2}}
-.hl-side-text{gap:8px}
-.hl-side-text h3{font-size:18px;line-height:1.35}
-.hl-side-text p{font-size:15.5px;line-height:1.6;-webkit-line-clamp:4;color:#374151}
-@media(max-width:860px){.hl-side-text h3{font-size:16px}.hl-side-text p{font-size:14.5px;-webkit-line-clamp:3}}
-/* Highlight: content up top, bigger main item, side items spread to its height, a scroll cue at the bottom */
-.highlight{align-content:start;align-items:stretch;padding:28px 0 0;margin-bottom:40px;grid-template-rows:1fr auto;row-gap:0}
-.hl-main{grid-row:1}.hl-list{grid-row:1;justify-content:space-between}
-.hl-text h2{font-size:36px}.hl-text p{font-size:18px}
-.blog-body[id]{scroll-margin-top:72px}
-@media(max-width:860px){.hl-main,.hl-list{grid-row:auto}.highlight{grid-template-rows:none}.hl-text h2{font-size:26px}.hl-text p{font-size:16px}}
-/* Highlight no longer fills the screen: the filter and the next row peek in below it */
-.highlight{min-height:0;grid-template-rows:auto;padding:28px 0 0;margin-bottom:36px}
+/* First screen ends with the project filter tags: the highlight stretches so the tags sit at the bottom and the cards start below the fold */
+.highlight{min-height:calc(100vh - 60px - 104px);min-height:calc(100svh - 60px - 104px);margin-bottom:24px}
+.highlight+.blog-body .project-list{margin-top:44px}
+@media(max-width:860px){.highlight{min-height:0}}
