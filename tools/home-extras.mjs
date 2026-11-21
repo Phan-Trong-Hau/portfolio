@@ -19,13 +19,13 @@ export function syncHomeExtras(ROOT, postCount) {
     const nav = `<!-- social:start -->${socialNav(lang, 'portrait-social', ['email', 'phone', 'linkedin'])}<!-- social:end -->`;
     s = SOCIAL.test(s) ? s.replace(SOCIAL, nav) : s.replace(/(<figure class="portrait">[\s\S]*?<\/picture>)/, `$1${nav}`);
 
-    // Counts beside the section headings and on the "see all" links.
+    // Counts beside the section headings (once: the "see all" links carry no number).
     const count = n => `<span class="heading-count">${n}</span>`;
     s = s.replace(/(<h2 id="projects-title">[^<]*)(?:<span class="heading-count">\d+<\/span>)?<\/h2>/, `$1${count(projects)}</h2>`);
     s = s.replace(/(<h2 id="blog-home-title">[^<]*)(?:<span class="heading-count">\d+<\/span>)?<\/h2>/, `$1${count(posts)}</h2>`);
     const all = lang === 'vi' ? ['Tất cả dự án', 'Tất cả bài viết'] : ['All projects', 'All posts'];
-    s = s.replace(new RegExp(`(<a class="see-all" href="projects/">)[^<]*(</a>)`), `$1${all[0]} (${projects}) →$2`);
-    s = s.replace(new RegExp(`(<a class="see-all" href="blog/">)[^<]*(</a>)`), `$1${all[1]} (${posts}) →$2`);
+    s = s.replace(new RegExp(`(<a class="see-all" href="projects/">)[^<]*(</a>)`), `$1${all[0]} →$2`);
+    s = s.replace(new RegExp(`(<a class="see-all" href="blog/">)[^<]*(</a>)`), `$1${all[1]} →$2`);
     fs.writeFileSync(file, s);
   }
 }
