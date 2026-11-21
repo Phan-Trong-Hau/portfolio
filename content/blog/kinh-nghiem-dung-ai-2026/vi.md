@@ -33,7 +33,7 @@ AI rất giỏi làm ra thứ **chạy được**. Còn thứ **đúng cảm gi�
 
 ## 3. Với sản phẩm AI, hãy đo bằng số chứ đừng đo bằng cảm giác
 
-Dự án mình học được nhiều nhất năm nay là [Kai](../../projects/kai/), chatbot trả lời câu hỏi về mình dựa trên CV. Nó chạy bằng mô hình nhỏ Qwen3 4B ngay trên laptop.
+Dự án mình học được nhiều nhất năm nay là [Kai](../../projects/kai/), chatbot trả lời câu hỏi về mình dựa trên CV. Hồi đầu nó chạy bằng một mô hình nhỏ ngay trên laptop của mình; giờ đã chuyển lên cloud.
 
 Một chatbot nói về người thật thì không được bịa nơi làm việc, ngày tháng hay con số. Hỏi thử vài câu thấy ổn không chứng minh được gì, nên mình viết một bộ eval chạy bằng một lệnh. Bộ câu hỏi gồm:
 

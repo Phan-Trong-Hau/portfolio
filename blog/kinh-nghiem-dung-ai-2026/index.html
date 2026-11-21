@@ -29,7 +29,7 @@
 <p>For a personal project, this works incredibly well. But there are things AI can&#39;t tell are &quot;not right yet&quot;. The clearest example was sound: ball clicks synthesized with Web Audio were technically correct but sounded fake. I switched to real recordings (CC0 licensed) and the game felt completely different.</p>
 <p>AI is very good at making something that <strong>works</strong>. Making something that <strong>feels right</strong> still takes a person playing it and saying &quot;not yet&quot;.</p>
 <h2 id="3-for-ai-products-measure-with-numbers-not-gut-feeling"><a class="anchor" href="#3-for-ai-products-measure-with-numbers-not-gut-feeling" aria-hidden="true">#</a>3. For AI products, measure with numbers, not gut feeling</h2>
-<p>The project I learned the most from this year is <a href="../../projects/kai/">Kai</a>, a chatbot that answers questions about me based on my CV. It runs on a small model, Qwen3 4B, right on my laptop.</p>
+<p>The project I learned the most from this year is <a href="../../projects/kai/">Kai</a>, a chatbot that answers questions about me based on my CV. At first it ran on a small model right on my laptop; it has since moved to the cloud.</p>
 <p>A chatbot that talks about a real person must never make up employers, dates, or numbers. Trying a few questions and seeing that they look fine proves nothing, so I wrote an eval suite that runs with one command. It includes:</p>
 <ul>
 <li>factual questions in both Vietnamese and English,</li>
