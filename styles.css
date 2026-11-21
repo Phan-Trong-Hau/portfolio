@@ -343,3 +343,4 @@ body>footer{flex-shrink:0}
 /* Keep the highlight items at their natural spacing; the spare height goes above and below the block instead */
 .highlight{align-content:center;align-items:start;padding-top:0}
 .hl-list{justify-content:flex-start}
+.hl-side-text p{-webkit-line-clamp:3}
