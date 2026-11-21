@@ -399,3 +399,11 @@ footer.site-footer-wrap{display:block;border-top:0;padding:0;margin-top:48px}
 .lead-inner{background:#eef2fc;border:1px solid #dbe3f7;border-radius:16px;padding:32px 36px;margin-bottom:40px}
 @media(max-width:700px){.lead-inner{padding:24px 20px;margin-bottom:28px}}
 .lead-status:empty{display:none}
+/* Lead CTA illustration (paper plane carrying a letter) on the right of the card */
+.lead-art{position:static;flex:0 0 auto;width:300px;height:auto;display:block}
+.lead-art svg{display:block;width:100%;height:auto}
+.lead-plane{animation:lead-plane 3.6s ease-in-out infinite;transform-origin:252px 66px}
+@keyframes lead-plane{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-6px,-6px) rotate(-4deg)}}
+@media(prefers-reduced-motion:reduce){.lead-plane{animation:none}}
+@media(max-width:860px){.lead-art{width:220px}}
+@media(max-width:700px){.lead-art{display:none}}
