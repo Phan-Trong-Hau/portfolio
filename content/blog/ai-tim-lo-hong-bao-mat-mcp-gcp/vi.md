@@ -4,6 +4,7 @@ date: 2026-11-12
 description: Một lỗ hổng làm lộ access token GCP đã nằm ngay trước mắt mọi người. Vì sao không ai thấy, và mình đã phối hợp với AI để tìm ra nó thế nào.
 tags: [ai, bao-mat, mcp, gcp]
 home: true
+featured: true
 cover: cover.webp
 ---
 

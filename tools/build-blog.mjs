@@ -18,6 +18,7 @@ import { Marked } from './vendor/marked.esm.js';
 import { footer, syncStaticFooters } from './footer.mjs';
 import { syncFeaturedProjects } from './projects.mjs';
 import { syncSeo } from './seo.mjs';
+import { syncProjectNav, topnav } from './topnav.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SRC = path.join(ROOT, 'content', 'blog');
@@ -31,7 +32,7 @@ const UI = {
     blogLead: 'Notes on things I build, problems I run into at work, and what I learn along the way.',
     back: '← Back to home', backBlog: '← All posts', allPosts: 'All posts →', prevPosts: 'Previous posts', nextPosts: 'Next posts', toSlide: 'Go to slide', nav: 'Language',
     empty: 'The first posts are on their way.', min: n => `${n} min read`, read: 'Read post', count: n => `${n} post${n === 1 ? '' : 's'}`,
-    viOnly: 'In Vietnamese', draft: 'Draft', top: 'Back to top ↑', prev: '← Newer', next: 'Older →',
+    viOnly: 'In Vietnamese', draft: 'Draft', featured: 'Featured post', top: 'Back to top ↑', prev: '← Newer', next: 'Older →',
     date: d => d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }),
   },
   vi: {
@@ -39,7 +40,7 @@ const UI = {
     blogLead: 'Ghi chép về những thứ mình làm, các vấn đề gặp ở công ty và những gì học được trên đường đi.',
     back: '← Về trang chủ', backBlog: '← Tất cả bài viết', allPosts: 'Tất cả bài viết →', prevPosts: 'Bài trước', nextPosts: 'Bài tiếp', toSlide: 'Tới slide', nav: 'Ngôn ngữ',
     empty: 'Những bài viết đầu tiên sắp ra mắt.', min: n => `${n} phút đọc`, read: 'Đọc bài', count: n => `${n} bài viết`,
-    enOnly: 'Bằng tiếng Anh', draft: 'Nháp', top: 'Lên đầu trang ↑', prev: '← Mới hơn', next: 'Cũ hơn →',
+    enOnly: 'Bằng tiếng Anh', draft: 'Nháp', featured: 'Bài viết nổi bật', top: 'Lên đầu trang ↑', prev: '← Mới hơn', next: 'Cũ hơn →',
     date: d => `${d.getUTCDate()} tháng ${d.getUTCMonth() + 1}, ${d.getUTCFullYear()}`,
   },
 };
@@ -148,9 +149,21 @@ function card(p, lang, where = 'index', h = 'h2') {
     + `<span class="post-foot">${tags}<span class="post-read">${u.read} <span aria-hidden="true">→</span></span></span></div></a></li>`;
 }
 
+// The featured post on the blog index (front matter `featured: true`): a wide card above the grid.
+function featuredCard(p, lang) {
+  const u = UI[lang];
+  const href = postHref(p, lang, 'index');
+  const L = p.lang !== lang ? ` lang="${p.lang}"` : '';
+  const cover = p.cover ? `<img src="${href}${esc(p.cover)}" width="1200" height="675" alt="">` : `<span class="post-cover-ph">${esc(p.tags[0] ? '#' + p.tags[0] : u.blog)}</span>`;
+  return `<section class="featured" aria-label="${u.featured}"><a class="featured-card" href="${href}"><div class="featured-media">${cover}</div><div class="featured-body">`
+    + `<p class="label">${u.featured.toUpperCase()}</p><h2${L}>${esc(p.title)}</h2>`
+    + (p.description ? `<p class="featured-lead"${L}>${esc(p.description)}</p>` : '')
+    + `<span class="post-meta"><time datetime="${p.date.toISOString().slice(0, 10)}">${UI[p.lang].date(p.date)}</time> · ${UI[p.lang].min(p.minutes)}</span>`
+    + `<span class="post-read">${u.read} <span aria-hidden="true">→</span></span></div></a></section>`;
+}
+
 function shell({ lang, root, title, description, enHref, viHref, body, back, backHref }) {
   const u = UI[lang];
-  const cur = l => (l === lang ? ' aria-current="page"' : '');
   return `<!doctype html>
 <html lang="${lang}">
 <head>
@@ -162,8 +175,9 @@ function shell({ lang, root, title, description, enHref, viHref, body, back, bac
 <link rel="stylesheet" href="${root}styles.css">
 </head>
 <body>
+${topnav({ lang, root, current: 'blog', enHref, viHref })}
 <main class="container" id="home">
-<div class="topbar"><a class="back" href="${backHref}">${back}</a><nav class="lang" aria-label="${u.nav}"><a href="${enHref}" lang="en"${cur('en')}>EN</a><a href="${viHref}" lang="vi"${cur('vi')}>VI</a></nav></div>
+${back ? `<div class="topbar"><a class="back" href="${backHref}">${back}</a></div>` : ''}
 ${body}
 </main>
 ${footer(lang, root)}
@@ -185,11 +199,13 @@ for (const lang of LANGS) {
   const root = lang === 'en' ? '../' : '../../';
 
   // blog index
-  const listHtml = list.length ? `<ul class="post-grid">${list.map(p => card(p, lang)).join('')}</ul>` : `<p class="post-empty">${u.empty}</p>`;
+  const top = list.find(p => p.featured && !p.draft);
+  const rest = list.filter(p => p !== top);
+  const listHtml = (top ? featuredCard(top, lang) : '') + (rest.length ? `<ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul>` : top ? '' : `<p class="post-empty">${u.empty}</p>`);
   write(path.join(outDir(lang), 'index.html'), shell({
     lang, root, title: `${u.blogTitle} — ${u.name}`, description: u.blogLead,
     enHref: lang === 'en' ? './' : '../../blog/', viHref: lang === 'en' ? '../vi/blog/' : './',
-    back: u.back, backHref: '../',
+    back: null, backHref: null,
     body: `<section class="blog-hero" aria-labelledby="blog-title"><p class="label">${u.blog.toUpperCase()}</p><h1 id="blog-title">${u.blogTitle}</h1><p class="intro-text">${u.blogLead}</p>${list.length ? `<p class="blog-count">${u.count(list.length)}</p>` : ''}</section>\n<section class="blog-body">${listHtml}</section>`,
   }));
 
@@ -230,6 +246,7 @@ for (const lang of LANGS) {
 
 const synced = syncStaticFooters(ROOT);
 const featured = syncFeaturedProjects(ROOT);
+const navved = syncProjectNav(ROOT);
 const indexed = syncSeo(ROOT);
 const count = l => posts.filter(p => p.lang === l).length;
 console.log(`blog: ${count('vi')} VI, ${count('en')} EN post(s)${DRAFTS ? ' (drafts included)' : ''}; footer synced on ${synced} page(s); ${featured} featured project(s) on home; ${indexed} page(s) in sitemap.xml`);

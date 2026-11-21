@@ -4,6 +4,7 @@ date: 2026-11-12
 description: A vulnerability that leaked GCP access tokens sat in plain sight. Why nobody saw it, and how I worked with AI to find it.
 tags: [ai, security, mcp, gcp]
 home: true
+featured: true
 cover: cover.webp
 ---
 

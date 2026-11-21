@@ -265,3 +265,16 @@
 .kx-l{font-size:11.5px;fill:var(--kx-muted)}.kx-l-bad{fill:var(--kx-bad);font-weight:650}
 .kx-g{fill:#fff;stroke:var(--kx-bad);stroke-width:1.8}.kx-gt{font-size:10.5px;font-weight:800;fill:var(--kx-bad)}
 .kx-sep{stroke:#d7dce5;stroke-width:1}
+/* Featured project / post: a wide card above the listing */
+.featured{margin:0 0 40px}
+.featured-card{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;transition:box-shadow .25s,transform .25s}
+.featured-card:hover{text-decoration:none;color:inherit;box-shadow:0 10px 30px rgba(31,35,40,.08);transform:translateY(-2px)}
+.featured-media{background:#eef2fb;min-height:100%}.featured-media img{display:block;width:100%;height:100%;object-fit:cover;aspect-ratio:16/9}
+.featured-body{padding:28px 30px;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.featured-body .label{margin:0}
+.featured-body h2{font-size:26px;line-height:1.3;margin:0}
+.featured-lead{color:#4b5563;font-size:15px;margin:0}
+.featured-stats{list-style:none;margin:4px 0 0;padding:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.featured-stats li{font-size:13px;color:var(--muted)}.featured-stats b{display:block;font-size:20px;color:var(--text);font-variant-numeric:tabular-nums}
+.featured-card .post-read{color:var(--accent);font-size:14px;font-weight:600;margin-top:4px}
+@media(max-width:760px){.featured-card{grid-template-columns:1fr}.featured-body{padding:22px}.featured-body h2{font-size:22px}}
