@@ -326,3 +326,11 @@ body:has(.highlight) .container,body:has(.highlight)>main{width:min(1280px,calc(
 .hl-side-text h3{font-size:18px;line-height:1.35}
 .hl-side-text p{font-size:15.5px;line-height:1.6;-webkit-line-clamp:4;color:#374151}
 @media(max-width:860px){.hl-side-text h3{font-size:16px}.hl-side-text p{font-size:14.5px;-webkit-line-clamp:3}}
+/* Highlight: content up top, bigger main item, side items spread to its height, a scroll cue at the bottom */
+.highlight{align-content:start;align-items:stretch;padding:28px 0 0;margin-bottom:40px;grid-template-rows:1fr auto;row-gap:0}
+.hl-main{grid-row:1}.hl-list{grid-row:1;justify-content:space-between}
+.hl-text h2{font-size:36px}.hl-text p{font-size:18px}
+.blog-body[id]{scroll-margin-top:72px}
+@media(max-width:860px){.hl-main,.hl-list{grid-row:auto}.highlight{grid-template-rows:none}.hl-text h2{font-size:26px}.hl-text p{font-size:16px}}
+/* Highlight no longer fills the screen: the filter and the next row peek in below it */
+.highlight{min-height:0;grid-template-rows:auto;padding:28px 0 0;margin-bottom:36px}

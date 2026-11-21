@@ -63,6 +63,7 @@ export function syncProjectHighlight(ROOT) {
     s = s.replace(/<section class="blog-hero"[\s\S]*?<\/section>\n?/, '');
     s = s.replace(/<section class="featured"[\s\S]*?<\/section>\n?/, '');
     s = MARK.test(s) ? s.replace(MARK, block) : s.replace('<section class="blog-body">', `${block}<section class="blog-body">`);
+    s = s.replace('<section class="blog-body">', '<section class="blog-body" id="all">');
     // Highlighted cards: skipped by the grid while "All" is on.
     s = s.replace(/<a class="project-card"([^>]*?)( data-hl="1")?( hidden)? href="([^"/]+)\/"/g, (m, attrs, _hl, _h, slug) =>
       HIGHLIGHT_PROJECTS.includes(slug) ? `<a class="project-card"${attrs} data-hl="1" hidden href="${slug}/"` : `<a class="project-card"${attrs} href="${slug}/"`);

@@ -201,7 +201,7 @@ for (const lang of LANGS) {
     };
   };
   const listHtml = (first.length ? highlight(first.map(item), { h1: u.blogTitle, label: u.featured }) : `<h1 class="sr-only">${u.blogTitle}</h1><p class="post-empty">${u.empty}</p>`)
-    + (rest.length ? `<section class="blog-body"><ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul></section>` : '');
+    + (rest.length ? `<section class="blog-body" id="all"><ul class="post-grid">${rest.map(p => card(p, lang)).join('')}</ul></section>` : '');
   write(path.join(outDir(lang), 'index.html'), shell({
     lang, root, title: `${u.blogTitle} — ${u.name}`, description: u.blogLead,
     enHref: lang === 'en' ? './' : '../../blog/', viHref: lang === 'en' ? '../vi/blog/' : './',
