@@ -394,3 +394,8 @@ footer.site-footer-wrap{display:block;border-top:0;padding:0;margin-top:48px}
 .lead-bubble{z-index:2;top:-4px;right:-6px}
 .lead-art img{margin-top:34px}
 .lead-art{height:220px}
+/* Lead CTA as a card inside the page width, with space before the footer row */
+.lead-cta{background:none;border-top:0}
+.lead-inner{background:#eef2fc;border:1px solid #dbe3f7;border-radius:16px;padding:32px 36px;margin-bottom:40px}
+@media(max-width:700px){.lead-inner{padding:24px 20px;margin-bottom:28px}}
+.lead-status:empty{display:none}

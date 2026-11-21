@@ -39,17 +39,14 @@ function toTop(label) {
 // saves it as a lead in the admin. The hidden "website" field is a honeypot for bots.
 const LEAD_API = 'https://kai.phantronghau.com/api/lead';
 const LEAD = {
-  en: { bubble: 'I’ll pass it on to Hau!', h: 'Want to talk?', p: 'Leave your email or phone number and I’ll get back to you.', label: 'Email or phone', ph: 'you@company.com or 0912 345 678', send: 'Send', sending: 'Sending…', ok: 'Thanks! I’ll get back to you soon.', bad: 'That doesn’t look like an email or phone number.', err: 'Couldn’t send it. Please try again in a moment.' },
-  vi: { bubble: 'Để mình chuyển lời cho Hậu nhé!', h: 'Muốn trao đổi thêm?', p: 'Để lại email hoặc số điện thoại, mình sẽ chủ động liên hệ lại với bạn.', label: 'Email hoặc số điện thoại', ph: 'ban@congty.com hoặc 0912 345 678', send: 'Gửi', sending: 'Đang gửi…', ok: 'Cảm ơn bạn! Mình sẽ liên hệ lại sớm.', bad: 'Có vẻ đây chưa phải email hoặc số điện thoại.', err: 'Chưa gửi được, bạn thử lại sau chút nhé.' },
+  en: { h: 'Want to talk?', p: 'Leave your email or phone number and I’ll get back to you.', label: 'Email or phone', ph: 'you@company.com or 0912 345 678', send: 'Send', sending: 'Sending…', ok: 'Thanks! I’ll get back to you soon.', bad: 'That doesn’t look like an email or phone number.', err: 'Couldn’t send it. Please try again in a moment.' },
+  vi: { h: 'Muốn trao đổi thêm?', p: 'Để lại email hoặc số điện thoại, mình sẽ chủ động liên hệ lại với bạn.', label: 'Email hoặc số điện thoại', ph: 'ban@congty.com hoặc 0912 345 678', send: 'Gửi', sending: 'Đang gửi…', ok: 'Cảm ơn bạn! Mình sẽ liên hệ lại sớm.', bad: 'Có vẻ đây chưa phải email hoặc số điện thoại.', err: 'Chưa gửi được, bạn thử lại sau chút nhé.' },
 };
-function leadForm(lang, root) {
+function leadForm(lang) {
   const t = LEAD[lang];
-  const mail = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg>';
-  const phone = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.7 2z"/></svg>';
-  const art = `<div class="lead-art" aria-hidden="true"><span class="lead-bubble">${t.bubble}</span><img src="${root}assets/kai-avatar.svg" width="150" height="150" alt=""><span class="lead-float f1">${mail}</span><span class="lead-float f2">${phone}</span><span class="lead-float f3">✦</span></div>`;
   return `<section class="lead-cta" aria-labelledby="lead-title"><div class="container lead-inner"><div class="lead-main"><div class="lead-copy"><h2 id="lead-title">${t.h}</h2><p>${t.p}</p></div>`
     + `<form class="lead-form" novalidate><label class="sr-only" for="lead-contact">${t.label}</label><input id="lead-contact" name="contact" type="text" inputmode="email" autocomplete="email" required maxlength="200" placeholder="${t.ph}">`
-    + `<input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">${t.send}</button><p class="lead-status" role="status" aria-live="polite"></p></form></div>${art}</div></section>`
+    + `<input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">${t.send}</button><p class="lead-status" role="status" aria-live="polite"></p></form></div></div></section>`
     + `<script>(function(){var f=document.querySelector('.lead-form');if(!f)return;var i=f.contact,b=f.querySelector('button'),st=f.querySelector('.lead-status'),T=${JSON.stringify({ sending: t.sending, send: t.send, ok: t.ok, bad: t.bad, err: t.err })};`
     + `f.addEventListener('submit',function(e){e.preventDefault();var v=i.value.trim();var ok=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(v)||(/^\\+?[\\d\\s().-]{9,20}$/.test(v)&&v.replace(/\\D/g,'').length>=9);`
     + `if(!ok){st.textContent=T.bad;st.className='lead-status bad';i.focus();return}b.disabled=true;b.textContent=T.sending;st.textContent='';`
@@ -74,7 +71,7 @@ export function footer(lang, root) {
     const label = lang === 'vi' ? vi : en;
     return `<a href="${href}" aria-label="${label}" title="${label}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${ICON[k]}</a>`;
   }).join('');
-  return `<footer class="site-footer-wrap" id="contact">${leadForm(lang, root)}<div class="container site-footer"><span>${t.name}</span><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</div></footer>`;
+  return `<footer class="site-footer-wrap" id="contact">${leadForm(lang)}<div class="container site-footer"><span>${t.name}</span><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</div></footer>`;
 }
 
 // Rewrite the <footer> of the hand-written pages (home + project pages).
