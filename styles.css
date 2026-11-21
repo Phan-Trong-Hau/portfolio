@@ -315,3 +315,7 @@ body{min-height:100vh;min-height:100dvh;display:flex;flex-direction:column}
 body>main{flex:1 0 auto;width:min(1120px,calc(100% - 48px))}
 body>footer{flex-shrink:0}
 @media(max-width:700px){body>main{width:calc(100% - 32px)}}
+/* Listing pages (projects, blog): wider layout, and the highlight fills the first screen so the rest starts below the fold */
+body:has(.highlight) .container,body:has(.highlight)>main{width:min(1280px,calc(100% - 32px))}
+.highlight{min-height:calc(100vh - 60px);min-height:calc(100svh - 60px);align-content:center;padding:32px 0;margin-bottom:56px;box-sizing:border-box}
+@media(max-width:860px){.highlight{min-height:0;padding-top:28px;margin-bottom:64px}}
