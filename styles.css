@@ -340,3 +340,6 @@ body>footer{flex-shrink:0}
 .highlight{min-height:calc(100vh - 60px - 104px);min-height:calc(100svh - 60px - 104px);margin-bottom:24px}
 .highlight+.blog-body .project-list{margin-top:44px}
 @media(max-width:860px){.highlight{min-height:0}}
+/* Keep the highlight items at their natural spacing; the spare height goes above and below the block instead */
+.highlight{align-content:center;align-items:start;padding-top:0}
+.hl-list{justify-content:flex-start}
