@@ -29,13 +29,12 @@
 <div class="feature-grid"><div><h3>Chỉ trả lời theo CV</h3><p>Quy tắc giữ câu trả lời trong phạm vi CV, tài liệu và portfolio. CV không có thì Kai nói rõ, kèm chi tiết liên quan gần nhất.</p></div><div><h3>Biết bạn đang đọc trang nào</h3><p>Hỏi “dự án này dùng gì?” trên trang một dự án, Kai trả lời đúng dự án đó. Server tự đọc trang, chỉ từ domain của mình.</p></div><div><h3>Đặt lịch gọi</h3><p>Kai hiện các khung giờ trống lấy từ Google Calendar của mình. Người xem chọn giờ, điền tên và email, lời mời Google Meet được gửi đi ngay.</p></div><div><h3>Guardrail nhiều lớp</h3><p>Lọc mẫu cố định, AI phân tích ý đồ, so khớp với mẫu tấn công bằng vector, kiểm từng câu trả lời, và AI đọc lại khi lượt chat đáng ngờ.</p></div><div><h3>X-ray công khai</h3><p>Ai cũng xem được từng bước Kai xử lý một câu hỏi, theo thời gian thực, bằng hình thay vì chữ. Tên model và phần cứng chỉ admin thấy.</p></div><div><h3>Trải nghiệm như app chat</h3><p>Đã gửi / Đã xem, badge tin chưa đọc, gom tin gửi liên tiếp, tự cuộn, câu hỏi gợi ý tiếp, nhớ người quay lại và chào lại.</p></div><div><h3>Cache câu trả lời</h3><p>Đoạn chat giống hệt một đoạn trước trong ngày nhận lại câu trả lời đã kiểm duyệt, không gọi model, trả lời gần như ngay.</p></div><div><h3>Trang quản trị</h3><p>Phiên chat, lead, lịch hẹn, quy tắc, kỹ năng, prompt, tài liệu, chọn nhà cung cấp model, biểu đồ guardrail và hàng chờ xem lại.</p></div></div>
 </section>
 <section class="section" aria-labelledby="diagram-title"><div class="section-heading"><h2 id="diagram-title">Sơ đồ kiến trúc</h2></div>
-<figure class="kx"><div class="kx-legend"><span><i style="border-color:var(--kx-client);background:var(--kx-client-bg)"></i>Trình duyệt</span><span><i style="border-color:var(--kx-vercel);background:var(--kx-vercel-bg)"></i>Vercel · Singapore</span><span><i style="border-color:var(--kx-neon);background:var(--kx-neon-bg)"></i>Neon Postgres</span><span><i style="border-color:var(--kx-gai);background:var(--kx-gai-bg)"></i>Gemini API</span><span><i style="border-color:var(--kx-cal);background:var(--kx-cal-bg)"></i>Google Calendar</span><span><i style="border-color:var(--kx-local);background:var(--kx-local-bg);border-style:dashed"></i>Máy của Hậu (tuỳ chọn)</span><span><i style="border-color:var(--kx-bad);border-radius:50%"></i>G1–G6: lớp guardrail</span></div><div class="kx-frame"><div class="kx-tools"><button type="button" data-kz="out" aria-label="Thu nhỏ">−</button><output aria-live="polite">100%</output><button type="button" data-kz="in" aria-label="Phóng to">+</button><button type="button" data-kz="fit">Vừa khung</button><button type="button" data-kz="full" aria-label="Toàn màn hình">⛶</button></div><div class="kx-view" tabindex="0" aria-label="Sơ đồ, có thể phóng to và kéo">
-<svg class="kx-svg" viewBox="0 0 1760 1140" role="img" aria-label="Kiến trúc Kai: trình duyệt; Next.js trên Vercel Singapore với chín bước của một lượt chat và đường nạp kiến thức RAG; Neon Postgres; chuỗi model Gemini có dự phòng; Google Calendar. G1 đến G6 là sáu lớp guardrail.">
+<figure class="kx"><div class="kx-legend"><span><i style="border-color:var(--kx-client);background:var(--kx-client-bg)"></i>Trình duyệt</span><span><i style="border-color:var(--kx-vercel);background:var(--kx-vercel-bg)"></i>Vercel · Singapore</span><span><i style="border-color:var(--kx-neon);background:var(--kx-neon-bg)"></i>Neon Postgres</span><span><i style="border-color:var(--kx-gai);background:var(--kx-gai-bg)"></i>Gemini API</span><span><i style="border-color:var(--kx-cal);background:var(--kx-cal-bg)"></i>Google Calendar</span><span><i style="border-color:var(--kx-bad);border-radius:50%"></i>G1–G6: lớp guardrail</span></div><div class="kx-frame"><div class="kx-view">
+<svg class="kx-svg" viewBox="0 0 1760 1124" role="img" aria-label="Kiến trúc Kai: trình duyệt; Next.js trên Vercel Singapore với chín bước của một lượt chat và đường nạp kiến thức RAG; Neon Postgres; chuỗi model Gemini có dự phòng; Google Calendar. G1 đến G6 là sáu lớp guardrail.">
 <defs><marker id="kxm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="kx-ah"/></marker><marker id="kxmb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" class="kx-ah-bad"/></marker></defs>
 <rect class="kx-zone kx-z-client" x="24" y="24" width="262" height="420" rx="16"/>
 <text class="kx-zt kx-c-client" x="44" y="54">TRÌNH DUYỆT</text>
-<rect class="kx-zone kx-z-local kx-dash" x="24" y="474" width="262" height="226" rx="16"/>
-<text class="kx-zt kx-c-local" x="44" y="504">MÁY CỦA HẬU · TUỲ CHỌN</text>
+
 <rect class="kx-zone kx-z-vercel" x="346" y="24" width="870" height="1092" rx="16"/>
 <text class="kx-zt kx-c-vercel" x="366" y="54">VERCEL · NEXT.JS 16 · SINGAPORE (SIN1)</text>
 <rect class="kx-zone kx-z-neon" x="1282" y="24" width="454" height="520" rx="16"/>
@@ -56,14 +55,7 @@
 <rect class="kx-box kx-b-client" x="42" y="346" width="226" height="64" rx="10"/>
 <text class="kx-t" x="56" y="369">Trang quản trị</text>
 <text class="kx-s" x="56" y="388">/admin · chỉ admin</text>
-<rect class="kx-box kx-b-local kx-dash" x="42" y="524" width="226" height="156" rx="10"/>
-<text class="kx-t" x="56" y="547">Ollama</text>
-<text class="kx-s" x="56" y="566">Qwen3 4B · bge-m3</text>
-<text class="kx-s" x="56" y="582">chỉ chạy khi admin chọn</text>
-<text class="kx-s" x="56" y="598">“Local” trong cài đặt;</text>
-<text class="kx-s" x="56" y="614">máy tắt thì lượt chat</text>
-<text class="kx-s" x="56" y="630">chuyển sang chuỗi Gemini</text>
-<text class="kx-s" x="56" y="646">(fallbackWhenLocalDown)</text>
+
 <text class="kx-sec" x="378" y="86">MỘT LƯỢT CHAT · /api/chat</text>
 <rect class="kx-box kx-b-vercel" x="378" y="104" width="430" height="58" rx="10"/>
 <text class="kx-t" x="392" y="127">1 · Nhận tin nhắn</text>
@@ -184,7 +176,7 @@
 <path class="kx-a" d="M975.5 1039 H1003.5" marker-end="url(#kxm)"/>
 <rect class="kx-box kx-b-vercel" x="1003.5" y="1000" width="180.5" height="78" rx="10"/>
 <text class="kx-t" x="1017.5" y="1023">Tạo embedding</text>
-<text class="kx-s" x="1017.5" y="1042">gemini-embedding-001</text>
+<text class="kx-s" x="1017.5" y="1042">model embedding</text>
 <text class="kx-s" x="1017.5" y="1058">1024 chiều</text>
 <rect class="kx-z-gai" x="1120" y="1052" width="54" height="18" rx="5"/><text class="kx-tag kx-c-gai" x="1147" y="1065" text-anchor="middle">Gemini</text>
 <rect class="kx-box kx-b-neon" x="1302" y="72" width="414" height="60" rx="10"/>
@@ -214,25 +206,24 @@
 <circle class="kx-g" cx="1296" cy="406" r="12"/><text class="kx-gt" x="1296" y="410" text-anchor="middle">G6</text>
 <text class="kx-sec" x="1302" y="632">CHUỖI CHAT · nhỏ nhất trước · mỗi model tối đa 8 giây</text>
 <rect class="kx-box kx-b-gai" x="1302" y="646" width="414" height="50" rx="10"/>
-<text class="kx-t" x="1316" y="669">1 · gemma-4-26b-a4b-it</text>
-<text class="kx-s" x="1316" y="688">4B tham số hoạt động · thường ~1 giây</text>
+<text class="kx-t" x="1316" y="669">1 · Model chính</text>
+<text class="kx-s" x="1316" y="688">nhỏ và nhanh nhất</text>
 <path class="kx-a" d="M1342 696 V720" marker-end="url(#kxm)"/>
 <text class="kx-l" x="1352" y="712" text-anchor="start">lỗi · 429 · quá 8 giây</text>
 <rect class="kx-box kx-b-gai" x="1302" y="720" width="414" height="50" rx="10"/>
-<text class="kx-t" x="1316" y="743">2 · gemini-3.5-flash-lite</text>
+<text class="kx-t" x="1316" y="743">2 · Dự phòng 1</text>
 <text class="kx-s" x="1316" y="762">hạn mức free riêng</text>
 <path class="kx-a" d="M1342 770 V794" marker-end="url(#kxm)"/>
 <text class="kx-l" x="1352" y="786" text-anchor="start">lỗi · 429 · quá 8 giây</text>
 <rect class="kx-box kx-b-gai" x="1302" y="794" width="414" height="50" rx="10"/>
-<text class="kx-t" x="1316" y="817">3 · gemini-3.1-flash-lite</text>
+<text class="kx-t" x="1316" y="817">3 · Dự phòng 2</text>
 <text class="kx-s" x="1316" y="836">model cuối: chờ tới khi xong</text>
 <rect class="kx-box kx-b-gai" x="1302" y="870" width="414" height="44" rx="10"/>
-<text class="kx-t" x="1316" y="893">Embedding · gemini-embedding-001</text>
+<text class="kx-t" x="1316" y="893">Model embedding</text>
 <text class="kx-s" x="1702" y="893" text-anchor="end">bước 4b, 5, nạp</text>
 <rect class="kx-box kx-b-cal" x="1302" y="994" width="414" height="40" rx="10"/>
 <text class="kx-t" x="1316" y="1017">freeBusy · tạo sự kiện kèm Google Meet</text>
-<rect class="kx-box kx-b-local kx-dash" x="1282" y="1070" width="454" height="46" rx="10"/>
-<text class="kx-t" x="1296" y="1093">OpenRouter · dự phòng cũ, đã tắt (hết credit)</text>
+
 <path class="kx-a" d="M268 92 H1022.0 V104" marker-end="url(#kxm)"/>
 <text class="kx-l" x="276" y="84" text-anchor="start">nạp script</text>
 <path class="kx-a" d="M268 198 H332 V133 H378" marker-end="url(#kxm)"/>
@@ -241,8 +232,7 @@
 <text class="kx-l" x="274" y="280" text-anchor="start">trace=true</text>
 <path class="kx-a" d="M268 378 H312 V942 H1202 V703 H1188" marker-end="url(#kxm)"/>
 <text class="kx-l" x="274" y="370" text-anchor="start">quản trị</text>
-<path class="kx-a kx-a-dash" d="M378 714 H302 V612 H268" marker-end="url(#kxm)"/>
-<text class="kx-l" x="296" y="704" text-anchor="end">chế độ Local</text>
+
 <path class="kx-a" d="M1216 300 H1282" marker-end="url(#kxm)"/>
 <text class="kx-l" x="1224" y="292" text-anchor="start">SQL</text>
 <path class="kx-a" d="M1216 690 H1302" marker-end="url(#kxm)"/>
@@ -250,10 +240,10 @@
 <path class="kx-a" d="M1188 609 H1246 V1014 H1302" marker-end="url(#kxm)"/>
 <text class="kx-l" x="1252" y="1008" text-anchor="start">đặt lịch</text>
 <path class="kx-a" d="M1093.75 1078 V1104 H1234 V330 H1302" marker-end="url(#kxm)"/>
-<text class="kx-l" x="1242" y="1134" text-anchor="start">ghi document_chunks</text>
+<text class="kx-l" x="1242" y="1092" text-anchor="start">ghi document_chunks</text>
 </svg>
 
-</div></div><p class="kx-hint">Kéo để di chuyển · Ctrl + cuộn hoặc nút +/− để phóng to · ⛶ để xem toàn màn hình.</p><figcaption>Cột giữa là một lượt chat trong <code>/api/chat</code>, đi từ trên xuống; trúng cache (bước 3) thì đi thẳng tới bước gửi. Mũi tên đỏ là các chỗ dừng sớm: G1 lọc mẫu, G2/G3 ở bước hiểu câu hỏi và so khớp tấn công, G4 kiểm từng câu trước khi tới trình duyệt. G5 chỉ chạy khi lượt chat đáng ngờ, sau khi đã gửi; G6 ghi mọi lần chặn để vẽ biểu đồ và cảnh báo trong admin. Cột Gemini là chuỗi model dự phòng: model nào lỗi, hết hạn mức hoặc quá 8 giây thì model kế tiếp nhận đúng lời gọi đó. Dải dưới cùng là đường nạp kiến thức cho RAG, ghi vào chính bảng mà bước 5 tìm kiếm.</figcaption></figure>
+</div></div><figcaption>Cột giữa là một lượt chat trong <code>/api/chat</code>, đi từ trên xuống; trúng cache (bước 3) thì đi thẳng tới bước gửi. Mũi tên đỏ là các chỗ dừng sớm: G1 lọc mẫu, G2/G3 ở bước hiểu câu hỏi và so khớp tấn công, G4 kiểm từng câu trước khi tới trình duyệt. G5 chỉ chạy khi lượt chat đáng ngờ, sau khi đã gửi; G6 ghi mọi lần chặn để vẽ biểu đồ và cảnh báo trong admin. Cột Gemini là chuỗi model dự phòng: model nào lỗi, hết hạn mức hoặc quá 8 giây thì model kế tiếp nhận đúng lời gọi đó. Dải dưới cùng là đường nạp kiến thức cho RAG, ghi vào chính bảng mà bước 5 tìm kiếm.</figcaption></figure>
 </section>
 
 <section class="section" aria-labelledby="arch-title"><div class="section-heading"><h2 id="arch-title">Kiến trúc: từ laptop lên cloud, $0</h2></div>
@@ -323,7 +313,6 @@
 <div class="prose"><ul><li><strong>Đo trên bản chạy thật.</strong> Lỗi vùng server, lỗi thiếu JSON schema và lỗi trích trang bị coi là lộ prompt đều qua được unit test; chỉ lộ ra khi xem log và trace của lượt chat thật.</li><li><strong>Rẻ trước, model sau.</strong> Mẫu cố định và so khớp vector bắt được nhiều câu tấn công mà không tốn lần gọi model nào. Lần gọi đắt nhất chỉ chạy khi có dấu hiệu.</li><li><strong>Miễn phí không có nghĩa là không có giá.</strong> Gói free đủ để chạy, nhưng độ trễ thất thường; dự phòng, thời gian chờ và cache là bắt buộc, không phải tuỳ chọn.</li><li><strong>Giải thích cho người không rành kỹ thuật cũng là một tính năng.</strong> X-ray cho nhà tuyển dụng thấy cách mình nghĩ về một hệ thống AI, nhanh hơn mọi đoạn mô tả.</li><li><strong>Trung thực với con số.</strong> Bộ eval 28/28 là của giai đoạn local; mình ghi rõ điều đó thay vì để nó đứng cạnh kiến trúc mới như thể đã đo lại.</li></ul></div>
 </section>
 </main>
-<script>(function(){document.querySelectorAll('.kx-frame').forEach(function(f){var v=f.querySelector('.kx-view'),s=f.querySelector('.kx-svg'),o=f.querySelector('output'),z=1;function set(n,cx,cy){var r=v.getBoundingClientRect();cx=cx==null?r.width/2:cx;cy=cy==null?r.height/2:cy;var fx=(v.scrollLeft+cx)/v.scrollWidth,fy=(v.scrollTop+cy)/v.scrollHeight;z=Math.min(4,Math.max(1,n));s.style.setProperty('--kz',z);o.textContent=Math.round(z*100)+'%';v.scrollLeft=fx*v.scrollWidth-cx;v.scrollTop=fy*v.scrollHeight-cy}f.querySelector('[data-kz=in]').onclick=function(){set(z*1.25)};f.querySelector('[data-kz=out]').onclick=function(){set(z/1.25)};f.querySelector('[data-kz=fit]').onclick=function(){set(1)};var fs=f.querySelector('[data-kz=full]');if(!f.requestFullscreen)fs.hidden=true;fs.onclick=function(){document.fullscreenElement?document.exitFullscreen():f.requestFullscreen().catch(function(){})};v.addEventListener('wheel',function(e){if(!e.ctrlKey&&!e.metaKey)return;e.preventDefault();var r=v.getBoundingClientRect();set(z*(e.deltaY<0?1.15:1/1.15),e.clientX-r.left,e.clientY-r.top)},{passive:false});var d=null;v.addEventListener('pointerdown',function(e){if(e.pointerType!=='mouse'||e.button)return;d={x:e.clientX,y:e.clientY,l:v.scrollLeft,t:v.scrollTop};v.classList.add('dragging');v.setPointerCapture(e.pointerId)});v.addEventListener('pointermove',function(e){if(!d)return;v.scrollLeft=d.l-(e.clientX-d.x);v.scrollTop=d.t-(e.clientY-d.y)});['pointerup','pointercancel'].forEach(function(t){v.addEventListener(t,function(){d=null;v.classList.remove('dragging')})});v.addEventListener('keydown',function(e){if(e.key==='+'||e.key==='=')set(z*1.25);else if(e.key==='-')set(z/1.25);else if(e.key==='0')set(1)})})})()</script>
 <footer class="container site-footer" id="contact"><span>Phan Trọng Hậu</span><nav class="footer-social" aria-label="Liên hệ"><a href="mailto:phantronghau.dev@gmail.com" aria-label="Email: phantronghau.dev@gmail.com" title="Email: phantronghau.dev@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 6L2 7"/></svg></a><a href="tel:+84392334214" aria-label="Gọi 0392 334 214" title="Gọi 0392 334 214"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg></a><a href="https://zalo.me/0392334214" aria-label="Zalo: 0392 334 214" title="Zalo: 0392 334 214" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24"><rect x="1" y="1" width="22" height="22" rx="6" fill="currentColor"/><text x="12" y="15.6" text-anchor="middle" font-family="Arial,sans-serif" font-size="8.6" font-weight="700" fill="#fff">Zalo</text></svg></a><a href="https://www.linkedin.com/in/phan-trong-hau/" aria-label="LinkedIn" title="LinkedIn" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/></svg></a><a href="https://github.com/Phan-Trong-Hau" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-5.9 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.5.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 4.7 18.3 5 18.3 5c.7 1.7.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0 0 12 .3"/></svg></a><a href="https://www.facebook.com/phantronghauJs" aria-label="Facebook" title="Facebook" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07C0 18.1 4.39 23.1 10.13 24v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.7 4.53-4.7 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8V24C19.62 23.1 24 18.1 24 12.07"/></svg></a></nav><button type="button" class="to-top" aria-label="Lên đầu trang" title="Lên đầu trang"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script>(()=>{const b=document.querySelector('.to-top');if(!b)return;const chat=()=>document.querySelector('body>button[aria-expanded][aria-label]');const up=()=>{b.classList.toggle('show',scrollY>600);b.classList.toggle('above-chat',!!chat())};addEventListener('scroll',up,{passive:true});up();b.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}))})()</script></footer>
 <script>addEventListener('load',function(){var s=document.createElement('script');s.src='https://kai.phantronghau.com/widget.js';s.async=true;document.body.appendChild(s)})</script>
 <script>(function(){var s=document.querySelector('script[src$="/widget.js"]'),a=document.querySelector('.kai-live');if(!s||!a)return;a.href=new URL('/xray?lang=vi',s.src).href;a.target='_blank';a.rel='noopener';a.hidden=false})()</script>
