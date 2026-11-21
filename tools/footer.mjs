@@ -35,6 +35,25 @@ function toTop(label) {
   return `<button type="button" class="to-top" aria-label="${label}" title="${label}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button><script>(()=>{const b=document.querySelector('.to-top');if(!b)return;const chat=()=>document.querySelector('body>button[aria-expanded][aria-label]');const up=()=>{b.classList.toggle('show',scrollY>600);b.classList.toggle('above-chat',!!chat())};addEventListener('scroll',up,{passive:true});up();b.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}))})()</script>`;
 }
 
+// "Leave your email or phone and Hau will get back to you": posts to Kai's /api/lead, which
+// saves it as a lead in the admin. The hidden "website" field is a honeypot for bots.
+const LEAD_API = 'https://kai.phantronghau.com/api/lead';
+const LEAD = {
+  en: { h: 'Want to talk?', p: 'Leave your email or phone number and I’ll get back to you.', label: 'Email or phone', ph: 'you@company.com or 0912 345 678', send: 'Send', sending: 'Sending…', ok: 'Thanks! I’ll get back to you soon.', bad: 'That doesn’t look like an email or phone number.', err: 'Couldn’t send it. Please try again in a moment.' },
+  vi: { h: 'Muốn trao đổi thêm?', p: 'Để lại email hoặc số điện thoại, mình sẽ chủ động liên hệ lại với bạn.', label: 'Email hoặc số điện thoại', ph: 'ban@congty.com hoặc 0912 345 678', send: 'Gửi', sending: 'Đang gửi…', ok: 'Cảm ơn bạn! Mình sẽ liên hệ lại sớm.', bad: 'Có vẻ đây chưa phải email hoặc số điện thoại.', err: 'Chưa gửi được, bạn thử lại sau chút nhé.' },
+};
+function leadForm(lang) {
+  const t = LEAD[lang];
+  return `<section class="lead-cta" aria-labelledby="lead-title"><div class="container lead-inner"><div class="lead-copy"><h2 id="lead-title">${t.h}</h2><p>${t.p}</p></div>`
+    + `<form class="lead-form" novalidate><label class="sr-only" for="lead-contact">${t.label}</label><input id="lead-contact" name="contact" type="text" inputmode="email" autocomplete="email" required maxlength="200" placeholder="${t.ph}">`
+    + `<input class="lead-hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"><button type="submit">${t.send}</button><p class="lead-status" role="status" aria-live="polite"></p></form></div></section>`
+    + `<script>(function(){var f=document.querySelector('.lead-form');if(!f)return;var i=f.contact,b=f.querySelector('button'),st=f.querySelector('.lead-status'),T=${JSON.stringify({ sending: t.sending, send: t.send, ok: t.ok, bad: t.bad, err: t.err })};`
+    + `f.addEventListener('submit',function(e){e.preventDefault();var v=i.value.trim();var ok=/^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$/.test(v)||(/^\\+?[\\d\\s().-]{9,20}$/.test(v)&&v.replace(/\\D/g,'').length>=9);`
+    + `if(!ok){st.textContent=T.bad;st.className='lead-status bad';i.focus();return}b.disabled=true;b.textContent=T.sending;st.textContent='';`
+    + `fetch('${LEAD_API}',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({contact:v,page:location.pathname,website:f.website.value})})`
+    + `.then(function(r){if(!r.ok)throw r;st.textContent=T.ok;st.className='lead-status good';i.value=''}).catch(function(){st.textContent=T.err;st.className='lead-status bad'}).then(function(){b.disabled=false;b.textContent=T.send})})})()</script>`;
+}
+
 // root: relative path to the site root ('' , '../', '../../' …)
 /** The contact icons as a <nav> with the given class (the footer's, or the row under the home portrait). */
 export function socialNav(lang, cls, only = null) {
@@ -52,7 +71,7 @@ export function footer(lang, root) {
     const label = lang === 'vi' ? vi : en;
     return `<a href="${href}" aria-label="${label}" title="${label}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${ICON[k]}</a>`;
   }).join('');
-  return `<footer class="container site-footer" id="contact"><span>${t.name}</span><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</footer>`;
+  return `<footer class="site-footer-wrap" id="contact">${leadForm(lang)}<div class="container site-footer"><span>${t.name}</span><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</div></footer>`;
 }
 
 // Rewrite the <footer> of the hand-written pages (home + project pages).
