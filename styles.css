@@ -421,3 +421,14 @@ html.kx-lock,html.kx-lock body{overflow:hidden}
 @media(max-width:700px){.shots-portrait.shots-4{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* The live X-ray needs a laptop screen: no link to it on touch phones and tablets */
 @media (pointer:coarse){.kai-live-wrap{display:none}}
+/* Lead form: name, email, phone (email or phone required) */
+.lead-form{flex-wrap:wrap}
+.lead-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px;flex:1 1 100%}
+.lead-field{display:block;min-width:0}.lead-field.lead-name{grid-column:1/-1}
+.lead-field input{width:100%;box-sizing:border-box}
+.lead-form input[aria-invalid="true"]{border-color:#cc3d66;box-shadow:0 0 0 3px rgba(204,61,102,.12)}
+@media(max-width:520px){.lead-fields{grid-template-columns:1fr}}
+.lead-form .lead-field input{flex:none;height:44px}
+.lead-form button{flex:0 0 auto}
+.lead-fields{grid-template-columns:1fr 1fr}.lead-field.lead-name{grid-column:auto}
+@media(max-width:520px){.lead-fields{grid-template-columns:1fr}}
