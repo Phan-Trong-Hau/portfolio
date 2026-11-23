@@ -430,5 +430,5 @@ html.kx-lock,html.kx-lock body{overflow:hidden}
 @media(max-width:520px){.lead-fields{grid-template-columns:1fr}}
 .lead-form .lead-field input{flex:none;height:44px}
 .lead-form button{flex:0 0 auto}
-.lead-fields{grid-template-columns:1fr 1fr}.lead-field.lead-name{grid-column:auto}
+.lead-fields{grid-template-columns:1fr}.lead-field.lead-name{grid-column:auto}
 @media(max-width:520px){.lead-fields{grid-template-columns:1fr}}
