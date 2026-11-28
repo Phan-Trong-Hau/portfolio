@@ -34,12 +34,12 @@ const PERSON = {
   '@id': `${SITE}/#person`,
   givenName: 'Hậu',
   familyName: 'Phan',
-  description: 'Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on AI systems. Formerly at Filum AI and Mysheo.',
+  description: 'Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on AI infrastructure. Formerly at Filum AI and Mysheo.',
   nationality: { '@type': 'Country', name: 'Vietnam' },
   alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'Industrial University of Ho Chi Minh City' }, { '@type': 'CollegeOrUniversity', name: 'VinUniversity' }],
   worksFor: undefined,
   hasOccupation: { '@type': 'Occupation', name: 'Software Engineer', occupationLocation: { '@type': 'City', name: 'Ho Chi Minh City' } },
-  knowsAbout: ['Software Engineering', 'Full-stack development', 'Next.js', 'Node.js', 'Python', 'Google Cloud Platform', 'System integrations', 'AI agents', 'RAG', 'AI systems'],
+  knowsAbout: ['Software Engineering', 'Full-stack development', 'Next.js', 'Node.js', 'Python', 'Google Cloud Platform', 'System integrations', 'AI agents', 'RAG', 'AI infrastructure'],
 };
 const PERSON_REF = { '@id': `${SITE}/#person` };
 const unesc = t => t.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&lt;/g, '<').replace(/&gt;/g, '>');
@@ -144,10 +144,10 @@ export function syncSeo(ROOT) {
 > ${PERSON.description}
 
 - Full name: Phan Trọng Hậu (written without accents: Phan Trong Hau)
-- Role: Software Engineer, focusing on AI systems; looking for Software Engineer or AI Systems roles in Ho Chi Minh City
+- Role: Software Engineer, focusing on AI infrastructure; looking for Software Engineer or AI Infrastructure roles in Ho Chi Minh City
 - Location: Ho Chi Minh City, Vietnam
 - Experience: Filum AI (Software Engineer, 07/2024 – 09/2026), Mysheo (Software Engineer, 09/2022 – 09/2023), freelance projects
-- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (AI Systems)
+- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (Data & AI Infrastructure track)
 - Skills: ${PERSON.knowsAbout.join(', ')}
 - Website: ${SITE}/ (English), ${SITE}/vi/ (Vietnamese)
 - CV (PDF): ${SITE}/assets/Phan_Trong_Hau_CV.pdf

@@ -1,13 +1,13 @@
 # Phan Trọng Hậu (Phan Trong Hau)
 
-> Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on AI systems. Formerly at Filum AI and Mysheo.
+> Software Engineer in Ho Chi Minh City, Vietnam: full-stack development, system integrations and cloud (GCP, Vercel), now focusing on AI infrastructure. Formerly at Filum AI and Mysheo.
 
 - Full name: Phan Trọng Hậu (written without accents: Phan Trong Hau)
-- Role: Software Engineer, focusing on AI systems; looking for Software Engineer or AI Systems roles in Ho Chi Minh City
+- Role: Software Engineer, focusing on AI infrastructure; looking for Software Engineer or AI Infrastructure roles in Ho Chi Minh City
 - Location: Ho Chi Minh City, Vietnam
 - Experience: Filum AI (Software Engineer, 07/2024 – 09/2026), Mysheo (Software Engineer, 09/2022 – 09/2023), freelance projects
-- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (AI Systems)
-- Skills: Software Engineering, Full-stack development, Next.js, Node.js, Python, Google Cloud Platform, System integrations, AI agents, RAG, AI systems
+- Education: Industrial University of Ho Chi Minh City; VinUniversity AI Action program (Data & AI Infrastructure track)
+- Skills: Software Engineering, Full-stack development, Next.js, Node.js, Python, Google Cloud Platform, System integrations, AI agents, RAG, AI infrastructure
 - Website: https://www.phantronghau.com/ (English), https://www.phantronghau.com/vi/ (Vietnamese)
 - CV (PDF): https://www.phantronghau.com/assets/Phan_Trong_Hau_CV.pdf
 - LinkedIn: https://www.linkedin.com/in/phan-trong-hau/
