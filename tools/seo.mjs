@@ -6,6 +6,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { execFileSync } from 'node:child_process';
 
 export const SITE = 'https://www.phantronghau.com';
 const VERIFY = '<meta name="google-site-verification" content="4zWluxktiTapGxPk52J-zz-eBmtZgL09MhFLPgTqvlY">';
@@ -98,6 +99,16 @@ function headFor(html, d, url, otherUrl) {
 }
 
 let ROOT_DIR = '';
+
+/** <lastmod> from the last commit that touched the page (or today, if it has uncommitted changes). */
+function lastmod(ROOT, d) {
+  const f = path.join(d, 'index.html');
+  try {
+    const dirty = execFileSync('git', ['status', '--porcelain', '--', f], { cwd: ROOT, encoding: 'utf8' }).trim();
+    const date = dirty ? new Date().toISOString().slice(0, 10) : execFileSync('git', ['log', '-1', '--format=%cs', '--', f], { cwd: ROOT, encoding: 'utf8' }).trim();
+    return date ? `\n    <lastmod>${date}</lastmod>` : '';
+  } catch { return ''; }
+}
 const SEO = /<!-- seo:start -->[\s\S]*?<!-- seo:end -->\n?/;
 
 export function syncSeo(ROOT) {
@@ -122,7 +133,7 @@ export function syncSeo(ROOT) {
     const alt = set.has(other)
       ? `\n    <xhtml:link rel="alternate" hreflang="${vi ? 'vi' : 'en'}" href="${url(d)}"/>\n    <xhtml:link rel="alternate" hreflang="${vi ? 'en' : 'vi'}" href="${url(other)}"/>`
       : '';
-    return `  <url>\n    <loc>${url(d)}</loc>${alt}\n  </url>`;
+    return `  <url>\n    <loc>${url(d)}</loc>${lastmod(ROOT, d)}${alt}\n  </url>`;
   });
   fs.writeFileSync(path.join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${entries.join('\n')}\n</urlset>\n`);
   // llms.txt: a plain summary for AI assistants, built from the pages' own titles and descriptions.

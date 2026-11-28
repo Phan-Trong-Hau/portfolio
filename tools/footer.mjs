@@ -77,7 +77,7 @@ export function footer(lang, root) {
     const label = lang === 'vi' ? vi : en;
     return `<a href="${href}" aria-label="${label}" title="${label}"${ext ? ' target="_blank" rel="noopener noreferrer"' : ''}>${ICON[k]}</a>`;
   }).join('');
-  return `<footer class="site-footer-wrap" id="contact">${leadForm(lang)}<div class="container site-footer"><span>${t.name}</span><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</div></footer>`;
+  return `<footer class="site-footer-wrap" id="contact">${leadForm(lang)}<div class="container site-footer"><a class="footer-name" href="${root}${lang === 'vi' ? 'vi/' : ''}">${t.name}</a><nav class="footer-social" aria-label="${t.contact}">${icons}</nav>${toTop(t.top)}</div></footer>`;
 }
 
 // Rewrite the <footer> of the hand-written pages (home + project pages).
